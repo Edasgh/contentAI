@@ -1,6 +1,6 @@
 import Agentpulse from "@/components/Agentpulse";
 import YoutubeVideoForm from "@/components/YoutubeVideoForm";
-import { Brain, Video } from "lucide-react";
+import { Activity, BarChart, Brain, ChartBar, CheckCircle, File, ImageDownIcon, MessageCircle, PenBoxIcon, Share, TagIcon, Video } from "lucide-react";
 
 const features = [
   {
@@ -11,15 +11,101 @@ const features = [
     iconBg: "bg-blue-100",
     iconColor: "text-blue-600",
   },
+  {
+    title: "Auto Transcription",
+    description:
+      "Convert YouTube videos into accurate, time-stamped transcripts with AI-powered speech-to-text processing.",
+    icon: File,
+    iconBg: "bg-green-100",
+    iconColor: "text-green-600",
+  },
+  {
+    title: "AI Script Generator",
+    description:
+      "Generate engaging video scripts based on trending topics and your niche, optimized for YouTube audience retention.",
+    icon: PenBoxIcon,
+    iconBg: "bg-yellow-100",
+    iconColor: "text-yellow-600",
+  },
+  {
+    title: "Thumbnail Creator",
+    description:
+      "Create high-quality, eye-catching thumbnails automatically, designed for maximum click-through rates.",
+    icon: ImageDownIcon,
+    iconBg: "bg-red-100",
+    iconColor: "text-red-600",
+  },
+  {
+    title: "SEO & Tag Optimization",
+    description:
+      "Optimize your video titles, descriptions, and tags using AI-driven SEO insights for better search rankings.",
+    icon: TagIcon,
+    iconBg: "bg-purple-100",
+    iconColor: "text-purple-600",
+  },
+  {
+    title: "Competitor Insights",
+    description:
+      "Analyze your competitors' videos and gain actionable insights to improve your content strategy.",
+    icon: ChartBar,
+    iconBg: "bg-orange-100",
+    iconColor: "text-orange-600",
+  },
+  {
+    title: "Trend Prediction",
+    description:
+      "Identify trending topics and content ideas before they go viral, helping you stay ahead of the competition.",
+    icon: BarChart,
+    iconBg: "bg-indigo-100",
+    iconColor: "text-indigo-600",
+  },
+  {
+    title: "Engagement Metrics",
+    description:
+      "Track and analyze views, likes, comments, and audience retention to refine your content strategy.",
+    icon: Activity,
+    iconBg: "bg-teal-100",
+    iconColor: "text-teal-600",
+  },
+  {
+    title: "Auto-Responder for Comments",
+    description:
+      "AI-powered comment replies to keep your audience engaged and enhance community interaction.",
+    icon: MessageCircle,
+    iconBg: "bg-pink-100",
+    iconColor: "text-pink-600",
+  },
+  {
+    title: "Social Media Content Repurposing",
+    description:
+      "Automatically generate short clips and captions for platforms like TikTok, Instagram, and Twitter.",
+    icon: Share,
+    iconBg: "bg-gray-100",
+    iconColor: "text-gray-600",
+  },
 ];
+
 
 const steps = [
   {
     title: "1. Connect with your content",
-    description: "Share your YouTube video URL and let your agent get to work",
+    description: "Share your YouTube video URL and let your agent get to work.",
     icon: Video,
   },
+  {
+    title: "2. Get AI-Powered Insights",
+    description:
+      "Our AI extracts the transcript, analyzes engagement, and generates a script for a similar video.",
+    icon: BarChart,
+  },
+  {
+    title: "3. Receive Your Ready-to-Use Content",
+    description:
+      "Download the transcript, script, and AI-generated thumbnail, all optimized for better performance.",
+    icon: CheckCircle,
+  },
 ];
+
 
 export default function Home() {
   return (
