@@ -1,7 +1,6 @@
 "use client";
 import Form from "next/form";
 import AnalyseButton from "./AnalyseButton";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { analyseYoutubeVideo } from "@/actions/analyseYoutubeVideo";
 
