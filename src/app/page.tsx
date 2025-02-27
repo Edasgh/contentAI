@@ -208,8 +208,8 @@ export default function Home() {
             Join creators leveraging AI to unlock content insights
           </p>
           <div className="flex mt-12 mx-auto max-w-sm items-center space-x-2">
-            <Input type="email"  className="placeholder:text-white border-[0.3px] border-white focus-visible:border-white focus-visible:ring-gray-400/50"  placeholder="Email" />
-            <Button className="cursor-pointer" type="submit">Join Now</Button>
+            <Input suppressHydrationWarning type="email"  className="placeholder:text-white border-[0.3px] border-white focus-visible:border-white focus-visible:ring-gray-400/50"  placeholder="Email" />
+            <Button  suppressHydrationWarning className="cursor-pointer" type="submit">Join Now</Button>
           </div>
         </div>
       </footer>
