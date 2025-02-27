@@ -8,7 +8,7 @@ const AnalyseButton = () => {
     <Button
       type="submit"
       disabled={pending}
-      className="cursor-pointer bg-blue-600 hover:bg-blue-500"
+      className="cursor-pointer bg-blue-600 dark:bg-blue-400 hover:bg-blue-500 dark:hover:bg-blue-300"
       suppressHydrationWarning
     >
       {pending ? "Analysing...":"Analyse"}

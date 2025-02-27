@@ -9,9 +9,16 @@ const YoutubeVideoForm = () => {
     <Form
       action={analyseYoutubeVideo}
       className="flex w-full max-w-sm items-center space-x-2"
-    suppressHydrationWarning >
-      <Input name="url" type="text" placeholder="Enter Video URL" suppressHydrationWarning />
-      <AnalyseButton/>
+      suppressHydrationWarning
+    >
+      <Input
+        name="url"
+        className="border-[.4px] dark:border-gray-500 "
+        type="text"
+        placeholder="Enter Video URL"
+        suppressHydrationWarning
+      />
+      <AnalyseButton />
     </Form>
   );
 };
