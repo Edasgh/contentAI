@@ -156,7 +156,7 @@ export default function Home() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-500 hover:border-blue-500   dark:hover:border-blue-300  transition-all duration-300"
+                className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-blue-500   dark:hover:border-blue-300  transition-all duration-300"
               >
                 <div
                   className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${feature.iconBg}`}
