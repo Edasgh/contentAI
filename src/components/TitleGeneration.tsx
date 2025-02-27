@@ -5,9 +5,14 @@ import Usage from "./Usage";
 import { useSchematicEntitlement } from "@schematichq/schematic-react";
 import { Copy } from "lucide-react";
 
+interface Title{
+    _id:string;
+    title:string;
+}
+
 const TitleGeneration = ({ videoId }: { videoId: string }) => {
   const { user } = useUser();
-  const titles = []; // TODO : PUll from convex db
+  const titles: Title[] = []; // TODO : PUll from convex db
   const { value: isTitleGenerationEnabled } = useSchematicEntitlement(
     FeatureFlag.TITLE_GENERATIONS
   );

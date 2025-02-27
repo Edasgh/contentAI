@@ -8,6 +8,11 @@ import { useSchematicEntitlement } from "@schematichq/schematic-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
+interface Thumbnail {
+  _id: string;
+  url: string;
+}
+
 const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
   const { user } = useUser();
   const images = useQuery(api.images.getImages, {
@@ -20,7 +25,7 @@ const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
   );
 
   // Ensure images is always an array to prevent undefined issues
-  const imageList = images || [];
+  const imageList: Thumbnail[] = images || [];
 
   return (
     <div className="flex flex-col rounded-xl p-4 border">
@@ -31,30 +36,27 @@ const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
         />
       </div>
 
-      {/* Simple horizontal scroll for images */}
+      {/* Thumbnails List */}
       {imageList.length > 0 && (
         <div className="flex overflow-x-auto gap-4 mt-4">
-          {imageList.map(
-            (img) =>
-              img.url && (
-                <div
-                  key={img._id}
-                  className="flex-none w-[200px] h-[110px] rounded-lg overflow-hidden"
-                >
-                  <Image
-                    src={img.url}
-                    alt="generated image"
-                    width={200}
-                    height={110}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-              )
-          )}
+          {imageList.map((img) => (
+            <div
+              key={img._id}
+              className="flex-none w-[200px] h-[110px] rounded-lg overflow-hidden"
+            >
+              <Image
+                src={img.url}
+                alt="Generated thumbnail"
+                width={200}
+                height={110}
+                className="object-cover w-full h-full"
+              />
+            </div>
+          ))}
         </div>
       )}
 
-      {/* No images generated yet */}
+      {/* No Thumbnails Available */}
       {imageList.length === 0 && !isImgGenerationEnabled && (
         <div className="text-center py-8 px-4 rounded-lg mt-4 border-2 border-dashed border-gray-200">
           <p className="text-gray-500">No thumbnails have been generated yet</p>
