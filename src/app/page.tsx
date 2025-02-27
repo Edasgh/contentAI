@@ -1,6 +1,21 @@
 import Agentpulse from "@/components/Agentpulse";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import YoutubeVideoForm from "@/components/YoutubeVideoForm";
-import { Activity, BarChart, Brain, ChartBar, CheckCircle, File, ImageDownIcon, MessageCircle, PenBoxIcon, Share, TagIcon, Video } from "lucide-react";
+import {
+  Activity,
+  BarChart,
+  Brain,
+  ChartBar,
+  CheckCircle,
+  File,
+  ImageDownIcon,
+  MessageCircle,
+  PenBoxIcon,
+  Share,
+  TagIcon,
+  Video,
+} from "lucide-react";
 
 const features = [
   {
@@ -85,7 +100,6 @@ const features = [
   },
 ];
 
-
 const steps = [
   {
     title: "1. Connect with your content",
@@ -105,7 +119,6 @@ const steps = [
     icon: CheckCircle,
   },
 ];
-
 
 export default function Home() {
   return (
@@ -127,7 +140,7 @@ export default function Home() {
             </p>
             {/* Youtube video form
              */}
-             <YoutubeVideoForm/>
+            <YoutubeVideoForm />
           </div>
         </div>
       </section>
@@ -151,7 +164,9 @@ export default function Home() {
                   <feature.icon className={`w-6 h-6 ${feature.iconColor}`} />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600 dark:text-gray-500">{feature.description}</p>
+                <p className="text-gray-600 dark:text-gray-500">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
@@ -175,7 +190,9 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
 
-                <p className="text-gray-600 dark:text-gray-500">{step.description}</p>
+                <p className="text-gray-600 dark:text-gray-500">
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>
@@ -190,6 +207,10 @@ export default function Home() {
           <p className="text-xl text-blue-50">
             Join creators leveraging AI to unlock content insights
           </p>
+          <div className="flex mt-12 mx-auto max-w-sm items-center space-x-2">
+            <Input type="email"  className="placeholder:text-white border-[0.3px] border-white focus-visible:border-white focus-visible:ring-gray-400/50"  placeholder="Email" />
+            <Button className="cursor-pointer" type="submit">Join Now</Button>
+          </div>
         </div>
       </footer>
     </div>
