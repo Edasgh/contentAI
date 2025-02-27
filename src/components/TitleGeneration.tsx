@@ -1,8 +1,6 @@
 "use client";
 import { FeatureFlag } from "@/features/flags";
 import { useUser } from "@clerk/nextjs";
-import Image from "next/image";
-import React from "react";
 import Usage from "./Usage";
 import { useSchematicEntitlement } from "@schematichq/schematic-react";
 import { Copy } from "lucide-react";
@@ -18,6 +16,18 @@ const TitleGeneration = ({ videoId }: { videoId: string }) => {
     navigator.clipboard.writeText(text);
     // toast.success("Copied to clipboard");
   };
+
+  if(!videoId)
+  {
+    return <div className="text-gray-500 text-center py-4">Loading....</div>;
+  }
+
+  if(!user)
+  {
+    return <div className="text-red-500 text-center py-4">Something Went Wrong!....</div>;
+  }
+
+
 
   return (
     <div className="flex flex-col rounded-xl p-4 border">

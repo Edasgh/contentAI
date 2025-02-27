@@ -18,6 +18,11 @@ const Transcription = ({ videoId }: { videoId: string }) => {
     FeatureFlag.TRANSCRIPTION
   );
 
+  if (!videoId) {
+    return <div className="text-gray-500 text-center py-4">Loading....</div>;
+  }
+
+
   return (
     <div className="border pb-0 p-4 rounded-xl gap-4 flex flex-col">
       <Usage featureFlag={FeatureFlag.TRANSCRIPTION} title="Transcripts" />
