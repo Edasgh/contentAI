@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <AppSidebar />
       <main className="flex-1 bg-white dark:bg-gray-800 flex flex-col min-w-0">
         <SidebarTrigger suppressHydrationWarning />
-        <main className="flex-1 px-5 overflow-y-auto">{children}</main>
+        <main className="flex-1 px-5">{children}</main>
       </main>
     </SidebarProvider>
   );
