@@ -2,8 +2,9 @@
 
 import { FeatureFlag } from "@/features/flags";
 import { useSchematicEntitlement } from "@schematichq/schematic-react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Usage from "./Usage";
+import { getYtTranscript } from "@/actions/getYtTranscript";
 interface TranscriptEntry {
   text: string;
   timestamp: string;
@@ -18,13 +19,29 @@ const Transcription = ({ videoId }: { videoId: string }) => {
     FeatureFlag.TRANSCRIPTION
   );
 
+  const handleGenerateTranscriptions = useCallback(
+    async (videoId: string) => {
+      if (featureUsageExceeded) {
+        console.log("Transcription limit reached, the user must upgrade");
+        return;
+      }
+
+      const result = await getYtTranscript(videoId);
+      setTranscript(result);
+    },
+    [featureUsageExceeded]
+  );
+
+  useEffect(() => {
+    handleGenerateTranscriptions(videoId);
+  }, [handleGenerateTranscriptions, videoId]);
+
   if (!videoId) {
     return <div className="text-gray-500 text-center py-4">Loading....</div>;
   }
 
-
   return (
-    <div className="border pb-0 p-4 rounded-xl gap-4 flex flex-col">
+    <div className="border border-gray-200 dark:border-gray-600 pb-0 p-4 rounded-xl gap-4 flex flex-col">
       <Usage featureFlag={FeatureFlag.TRANSCRIPTION} title="Transcripts" />
 
       {!featureUsageExceeded ? (
@@ -41,7 +58,9 @@ const Transcription = ({ videoId }: { videoId: string }) => {
               </div>
             ))
           ) : (
-            <p className="text-sm text-gray-500">No transcription available</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              No transcription available
+            </p>
           )}
         </div>
       ) : null}

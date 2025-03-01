@@ -4,7 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { SchematicClient } from "@schematichq/schematic-typescript-node";
 
 const client = new SchematicClient({
-  apiKey: String(process.env.NEXT_PUBLIC_SCHEMATIC_API_SECRET),
+  apiKey: String(process.env.SCHEMATIC_API_SECRET),
 });
 
 export async function getTemporaryAccessToken() {

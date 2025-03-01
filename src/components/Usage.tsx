@@ -88,7 +88,7 @@ const Usage = ({
   return (
     <div>
       <div className="flex justify-between items-center mb-4 gap-4">
-        <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">{title}</h2>
         <div className="px-4 py-2 bg-gray-50 rounded-lg">
           <span className="font-medium text-gray-700">{featureUsage}</span>
           <span className="text-gray-400 mx-2">/</span>
@@ -98,7 +98,7 @@ const Usage = ({
       <div className="relative">
         <Progress
           value={progress}
-          className={`h-3 rounded-full bg-gray-100 ${progressColor}`}
+          className={`h-3 rounded-full bg-gray-100 dark:bg-gray-700`}
         />
 
         {progress >= 100 ? (

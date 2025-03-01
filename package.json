@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^1.1.17",
+    "@ai-sdk/google-vertex": "^2.1.19",
+    "@ai-sdk/react": "^1.1.18",
     "@clerk/nextjs": "^6.12.0",
     "@radix-ui/react-dropdown-menu": "^2.1.6",
     "@radix-ui/react-progress": "^1.1.2",
@@ -17,6 +20,7 @@
     "@schematichq/schematic-react": "^1.2.3",
     "@schematichq/schematic-typescript-node": "^1.1.9",
     "@stripe/react-stripe-js": "^3.1.1",
+    "ai": "^4.1.46",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "convex": "^1.19.2",
@@ -26,13 +30,17 @@
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^10.0.0",
     "stripe": "^17.7.0",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "youtubei.js": "^13.1.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

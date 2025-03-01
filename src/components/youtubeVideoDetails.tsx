@@ -37,7 +37,7 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
   }
 
   return (
-    <div className="@container bg-white rounded-xl">
+    <div className="@container bg-white dark:bg-gray-800 rounded-xl">
       <div className="flex flex-col gap-8">
         {" "}
         {/* Video Thumbnail */}
@@ -49,12 +49,12 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                 alt={video.title}
                 width={500}
                 height={500}
-                className="w-full rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
+                className="w-full rounded-xl shadow-md hover:shadow-xl dark:hover:shadow-2xl transition-shadow duration-300"
               />
             </div>
             {/* Video details */}
             <div className="flex-grow space-y-4">
-              <h1 className="text-2xl @lg:text-3xl font-bold text-gray-900 leading-tight line-clamp-2">
+              <h1 className="text-2xl @lg:text-3xl font-bold text-gray-900 dark:text-gray-100 leading-tight line-clamp-2">
                 {video.title}
               </h1>{" "}
             </div>
@@ -70,10 +70,10 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                 className="w-10 h-10 @md:w-12 @md:h-12 rounded-full border-2 border-gray-100"
               />
               <div>
-                <p className="text-base @md:text-lg font-semibold text-gray-900">
+                <p className="text-base @md:text-lg font-semibold text-gray-900 dark:text-gray-300">
                   {video.channel.title}
                 </p>
-                <p className="text-sm @md:text-base text-gray-600">
+                <p className="text-sm @md:text-base text-gray-600 dark:text-gray-400">
                   {video.channel.subscribers} Subscribers
                 </p>
               </div>
@@ -83,42 +83,56 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
 
             <div className="grid grid-cols-2 @lg:grid-cols-4 gap-4 pt-4">
               {/* Publish Date */}
-              <div className="bg-gray-50 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100">
+              <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-900">
                 <div className="flex items-center gap-2 mb-1">
-                  <Calendar className="w-4 h-4 text-gray-600" />
-                  <p className="text-sm text-gray-600">Published</p>
+                  <Calendar className="w-4 h-4 text-gray-600 dark:text-gray-50" />
+                  <p className="text-sm text-gray-600  dark:text-gray-300">
+                    Published
+                  </p>
                 </div>
-                <p className="font-medium text-gray-900">
+                <p className="font-medium text-gray-900 dark:text-gray-400">
                   {new Date(video.publishedAt).toLocaleDateString()}
                 </p>
               </div>
               {/* Video views */}
 
-              <div className="bg-gray-50 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100">
+              <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-900">
                 <div className="flex items-center gap-2 mb-1">
-                  <Eye className="w-4 h-4 text-gray-600" />
-                  <p className="text-sm text-gray-600">Views</p>
+                  <Eye className="w-4 h-4 text-gray-600 dark:text-gray-50" />
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Views
+                  </p>
                 </div>
-                <p className="font-medium text-gray-900">{video.views}</p>
+                <p className="font-medium text-gray-900 dark:text-gray-400">
+                  {video.views}
+                </p>
               </div>
               {/* Video Likes */}
 
-              <div className="bg-gray-50 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100">
+              <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-900">
                 <div className="flex items-center gap-2 mb-1">
-                  <ThumbsUp className="w-4 h-4 text-gray-600" />
-                  <p className="text-sm text-gray-600">Likes</p>
+                  <ThumbsUp className="w-4 h-4 text-gray-600 dark:text-gray-50" />
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Likes
+                  </p>
                 </div>
-                <p className="font-medium text-gray-900">{video.likes}</p>
+                <p className="font-medium text-gray-900 dark:text-gray-400">
+                  {video.likes}
+                </p>
               </div>
 
               {/* Video comments */}
 
-              <div className="bg-gray-50 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100">
+              <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-900">
                 <div className="flex items-center gap-2 mb-1">
-                  <MessageCircle className="w-4 h-4 text-gray-600" />
-                  <p className="text-sm text-gray-600">Comments</p>
+                  <MessageCircle className="w-4 h-4 text-gray-600 dark:text-gray-50" />
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Comments
+                  </p>
                 </div>
-                <p className="font-medium text-gray-900">{video.comments}</p>
+                <p className="font-medium text-gray-900 dark:text-gray-400">
+                  {video.comments}
+                </p>
               </div>
             </div>
           </>
