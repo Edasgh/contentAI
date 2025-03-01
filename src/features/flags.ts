@@ -19,7 +19,7 @@ export const featureFlagEvents: Record<FeatureFlag, { event: string }> = {
   [FeatureFlag.TITLE_GENERATIONS]: {
     event: "generate-title",
   },
-  [FeatureFlag.SCRIPT_GENERATION]:{
-    event:""
-  }
+  [FeatureFlag.SCRIPT_GENERATION]: {
+    event: "",
+  },
 };

@@ -10,7 +10,11 @@ const nextConfig: NextConfig = {
       },
       {
         hostname: "yt3.ggpht.com",
-        protocol:"https"
+        protocol: "https",
+      },
+      {
+        hostname: "tangible-goose-758.convex.cloud",
+        protocol: "https",
       },
     ],
   },

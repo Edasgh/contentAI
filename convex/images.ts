@@ -23,6 +23,8 @@ export const getImages = query({
         };
       })
     );
+
+    return imgUrls;
   },
 });
 

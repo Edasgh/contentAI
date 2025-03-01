@@ -47,14 +47,14 @@ const fetchTranscript = async (videoId: string): Promise<TranscriptEntry[]> => {
 export async function getYtTranscript(videoId: string) {
   const user = await currentUser();
 
-  if (!user?.id) {
-    throw new Error("User not found!");
-  }
+  // if (!user?.id) {
+  //   throw new Error("User not found!");
+  // }
 
   // TODO :  Check if transcript already exists in db [iF IT'S cached]
   const existingTranscript = await convex.query(
     api.transcripts.getTranscriptByVideoId,
-    { videoId, userId: user.id }
+    { videoId, userId: user?.id??"" }
   );
 
   if (existingTranscript) {
@@ -74,17 +74,17 @@ export async function getYtTranscript(videoId: string) {
     // Store transcript in database
     await convex.mutation(api.transcripts.storeTranscript, {
       videoId,
-      userId: user.id,
+      userId: user?.id??"",
       transcript,
     });
 
     await client.track({
       event: featureFlagEvents[FeatureFlag.TRANSCRIPTION].event,
       company: {
-        id: user.id,
+        id: user?.id??"",
       },
       user: {
-        id: user.id,
+        id: user?.id??"",
       },
     });
 

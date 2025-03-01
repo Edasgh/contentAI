@@ -7,6 +7,7 @@ import { generateImg } from "@/lib/tools/generateImg";
 import { z } from "zod";
 import { getVideoIdFromUrl } from "@/lib/getVideoIdFromUrl";
 import generateTitle from "@/lib/tools/generateTitle";
+import { NextResponse } from "next/server";
 
 const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
@@ -16,15 +17,23 @@ const google = createGoogleGenerativeAI({
   baseURL: "https://generativelanguage.googleapis.com/v1beta",
 });
 
-const model = google("gemini-2.0-flash-001");
+const model = google("gemini-1.5-flash");
 
 export async function POST(req: Request) {
   const { messages, videoId } = await req.json();
   const user = await currentUser();
 
+  if (!user?.id) {
+    return NextResponse.json({ error: "Unauthorized!" }, { status: 401 });
+  }
+
   const videoDetails = await getVideoDetails(videoId);
 
-  const SYSTEM_MESSAGE = `You are an AI agent ready to accept questions from the user about ONE specific video. The video ID in the question is ${videoId} but you'll refer to this as ${videoDetails?.title || "Selected Video"}. Use emojis to make the conversation more engaging. If an error occurs, explain it to the user and ask them to try again later. If the error suggest the user upgrade, explain that they must upgrade to use this feature, tell them to go to 'Manage Plan' in the header and upgrade. If any tool is used, analyse the response and if it contains a cache, explain that the transcript is cached because they previously transcribed the video saving the user a token - use words like database instead of cache to make it more easy to understand.If the users asks to generate a title, generate transcripts first and summarize the transcripts. Format for notion.`;
+  const SYSTEM_MESSAGE = `You are an AI agent ready to accept questions from the user about ONE specific video. The video ID in the question is ${videoId} but you'll refer to this as ${videoDetails?.title || "Selected Video"}. Use emojis to make the conversation more engaging. If an error occurs, explain it to the user and ask them to try again later. If the error suggest the user upgrade, explain that they must upgrade to use this feature, tell them to go to 'Manage Plan' in the header and upgrade. If any tool is used, analyse the response and if it contains a cache, explain that the transcript is cached because they previously transcribed the video saving the user a token - use words like database instead of cache to make it more easy to understand. 
+  If the user asks to generate a title, generate transcripts first and then summarize the transcripts. 
+  If the user asks to generate a thumbnail, generate only ONE Thumbnail.
+  If the user asks about the video, generate transcripts first and then summarize the transcripts and send user the summary. 
+  Format for notion.`;
 
   const result = streamText({
     model,
@@ -38,7 +47,7 @@ export async function POST(req: Request) {
     tools: {
       fetchTranscript: fetchTranscript,
       generateTitle: generateTitle,
-      generateImage: generateImg(videoId, user?.id ?? ""),
+      generateThumbnail: generateImg(videoId, user?.id ?? ""),
       getVideoDetails: tool({
         description: "Get the details of a YouTube video",
         parameters: z.object({
@@ -49,7 +58,7 @@ export async function POST(req: Request) {
           return { videoDetails };
         },
       }),
-      extractVideoId: tool({
+      getVideoId: tool({
         description: "Extract the video ID from a URL",
         parameters: z.object({
           url: z.string().describe("The URL to extract the video ID from"),
@@ -62,6 +71,10 @@ export async function POST(req: Request) {
     },
   });
 
-  //   console.log(messages, videoId);
+  console.log(
+    "GEMINI RESULT MESSAGES FROM CHAT ROUTE :\n",
+    (await result.response).messages
+  );
+  console.log(messages, videoId);
   return result.toDataStreamResponse();
 }

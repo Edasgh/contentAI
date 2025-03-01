@@ -4,10 +4,9 @@ import { client } from "../schematic";
 import { FeatureFlag } from "@/features/flags";
 import { ImgGeneration } from "@/actions/ImgGeneration";
 
-
 export const generateImg = (videoId: string, userId: string) =>
   tool({
-    description: "Generate an Image",
+    description: "Generate an Image (Thumbnail of an YouTube video)",
     parameters: z.object({
       prompt: z.string().describe("The prompt to generate an image for"),
       videoId: z.string().describe("The Youtube video ID"),

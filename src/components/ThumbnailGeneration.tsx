@@ -7,17 +7,22 @@ import Image from "next/image";
 import { useSchematicEntitlement } from "@schematichq/schematic-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { Id } from "../../convex/_generated/dataModel";
 
-interface Thumbnail {
-  _id: string;
-  url: string;
+interface Thumbnail{
+    url: string | null;
+    _id: Id<"images">;
+    _creationTime: number;
+    videoId: string;
+    userId: string;
+    storageId: Id<"_storage">;
 }
 
 const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
   const { user } = useUser();
   const images = useQuery(api.images.getImages, {
     videoId,
-    userId: user?.id ?? "",
+    userId: user?.id??"",
   });
 
   const { value: isImgGenerationEnabled } = useSchematicEntitlement(
@@ -25,7 +30,7 @@ const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
   );
 
   // Ensure images is always an array to prevent undefined issues
-  const imageList: Thumbnail[] = images || [];
+  const imageList:Thumbnail[] = images || [];
 
   return (
     <div className="flex flex-col dark:border-gray-600 rounded-xl p-4 border">
@@ -37,7 +42,7 @@ const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
       </div>
 
       {/* Thumbnails List */}
-      {imageList.length > 0 && (
+      {imageList.length > 0 ? (
         <div className="flex overflow-x-auto gap-4 mt-4">
           {imageList.map((img) => (
             <div
@@ -45,7 +50,7 @@ const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
               className="flex-none w-[200px] h-[110px] rounded-lg overflow-hidden"
             >
               <Image
-                src={img.url}
+                src={img.url??""}
                 alt="Generated thumbnail"
                 width={200}
                 height={110}
@@ -54,17 +59,14 @@ const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
             </div>
           ))}
         </div>
-      )}
-
-      {/* No Thumbnails Available */}
-      {imageList.length === 0 && !isImgGenerationEnabled && (
+      ) : !isImgGenerationEnabled ? (
         <div className="text-center py-8 px-4 rounded-lg mt-4 border-2 border-dashed border-gray-200">
           <p className="text-gray-500">No thumbnails have been generated yet</p>
           <p className="text-sm text-gray-400 mt-1">
             Generate thumbnails to see them appear here
           </p>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

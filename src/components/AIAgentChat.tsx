@@ -171,7 +171,11 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
                 : "Ask anything about your video..."
             }
             className="flex-1 px-4 py-2 text-sm border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-gray-200"
-            disabled={!IsVideoAnalysisEnabled}
+            disabled={
+              status === "streaming" ||
+              status === "submitted" ||
+              !IsVideoAnalysisEnabled
+            }
             suppressHydrationWarning
           />
           <Button
@@ -194,7 +198,11 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
           <button
             type="button"
             className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
-            disabled={!IsScriptGenEnabled}
+            disabled={
+              status === "streaming" ||
+              status === "submitted" ||
+              !IsScriptGenEnabled
+            }
             onClick={generateScript}
           >
             <LetterText className="w-4 h-4" />
@@ -207,7 +215,11 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
           <button
             type="button"
             className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
-            disabled={!IsTitleGenEnabled}
+            disabled={
+              status === "streaming" ||
+              status === "submitted" ||
+              !IsTitleGenEnabled
+            }
             onClick={generateTitle}
           >
             <PenIcon className="w-4 h-4" />
@@ -220,7 +232,11 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
           <button
             type="button"
             className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
-            disabled={!IsImgGenEnabled}
+            disabled={
+              status === "streaming" ||
+              status === "submitted" ||
+              !IsImgGenEnabled
+            }
             onClick={generateImage}
           >
             <ImageIcon className="w-6 h-6" />

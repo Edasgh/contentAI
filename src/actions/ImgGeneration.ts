@@ -5,7 +5,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { api } from "../../convex/_generated/api";
 import { client } from "@/lib/schematic";
 import { FeatureFlag, featureFlagEvents } from "@/features/flags";
-import OpenAI from "openai";
+// import OpenAI from "openai";
 import { createTogetherAI, togetherai } from "@ai-sdk/togetherai";
 import { experimental_generateImage } from "ai";
 
@@ -13,9 +13,9 @@ const IMG_SIZE = "1792x1024" as const;
 
 const convexClient = getConvexClient();
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// const openai = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
 
 const together = createTogetherAI({
   apiKey: process.env.TOGETHER_API_KEY,
@@ -47,15 +47,16 @@ export async function ImgGeneration(prompt: string, videoId: string) {
     n: 1,
   });
 
-  const imgUrl = imageResponse.image.base64;
+  console.log("Image Response : ", imageResponse);
 
-  if (!imgUrl) {
-    throw new Error("Failed to generate image..");
-  }
+  if (!imageResponse?.image?.base64)
+    throw new Error("Failed to generate image.");
+
+  const imgUrl = `data:image/png;base64,${imageResponse.image.base64}`;
 
   // download the image
   const image: Blob = await fetch(imgUrl).then((res) => res.blob());
-  console.log("Downloaded image successfully!");
+  console.log("Downloaded image successfully!", image);
 
   // upload the image in convex
   const result = await fetch(postUrl, {
