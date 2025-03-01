@@ -116,7 +116,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
                       return (
                         <div
                           key={i}
-                          className={`prose prose-sm max-w-none ${message.role === "user" ? "text-white":"dark:text-white"} `}
+                          className={`prose prose-sm max-w-none ${message.role === "user" ? "text-white" : "dark:text-white"} `}
                         >
                           <ReactMarkdown>{part.text}</ReactMarkdown>
                         </div>
@@ -184,9 +184,9 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
             type="submit"
           >
             {status === "streaming"
-              ? "AI is replying.."
+              ? "🤖 Replying.."
               : status === "submitted"
-                ? "AI is thinking.."
+                ? "🤖 Thinking.."
                 : "Send"}
           </Button>
         </form>

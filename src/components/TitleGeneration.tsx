@@ -4,15 +4,20 @@ import { useUser } from "@clerk/nextjs";
 import Usage from "./Usage";
 import { useSchematicEntitlement } from "@schematichq/schematic-react";
 import { Copy } from "lucide-react";
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
 
-interface Title{
-    _id:string;
-    title:string;
+interface Title {
+  _id: string;
+  title: string;
 }
 
 const TitleGeneration = ({ videoId }: { videoId: string }) => {
   const { user } = useUser();
-  const titles: Title[] = []; // TODO : PUll from convex db
+  const titles = useQuery(api.titles.list, {
+    userId: user?.id??"",
+    videoId: videoId,
+  }); // TODO : PUll from convex db
   const { value: isTitleGenerationEnabled } = useSchematicEntitlement(
     FeatureFlag.TITLE_GENERATIONS
   );
@@ -22,20 +27,20 @@ const TitleGeneration = ({ videoId }: { videoId: string }) => {
     // toast.success("Copied to clipboard");
   };
 
-  if(!videoId)
-  {
+  if (!videoId) {
     return <div className="text-gray-500 text-center py-4">Loading....</div>;
   }
 
-  if(!user)
-  {
-    return <div className="text-red-500 text-center py-4">Something Went Wrong!....</div>;
+  if (!user) {
+    return (
+      <div className="text-red-500 text-center py-4">
+        Something Went Wrong!....
+      </div>
+    );
   }
 
-
-
   return (
-    <div className="flex flex-col rounded-xl p-4 border">
+    <div className="flex flex-col dark:border-gray-600 rounded-xl p-4 border">
       <div className="min-w-52">
         <Usage
           featureFlag={FeatureFlag.TITLE_GENERATIONS}

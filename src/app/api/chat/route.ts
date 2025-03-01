@@ -1,9 +1,12 @@
-import { NextResponse } from "next/server";
-import { streamText } from "ai";
+import { streamText, tool } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { currentUser } from "@clerk/nextjs/server";
 import { getVideoDetails } from "@/actions/getVideoDetails";
 import { fetchTranscript } from "@/lib/tools/fetchTranscript";
+import { generateImg } from "@/lib/tools/generateImg";
+import { z } from "zod";
+import { getVideoIdFromUrl } from "@/lib/getVideoIdFromUrl";
+import generateTitle from "@/lib/tools/generateTitle";
 
 const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
@@ -17,11 +20,7 @@ const model = google("gemini-2.0-flash-001");
 
 export async function POST(req: Request) {
   const { messages, videoId } = await req.json();
-//   const user = await currentUser();
-
-//   if (!user) {
-//     return NextResponse.json({ error: "Unauthorized!" }, { status: 401 });
-//   }
+  const user = await currentUser();
 
   const videoDetails = await getVideoDetails(videoId);
 
@@ -29,16 +28,38 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model,
-    messages:[
-        {
-            role:"system",
-            content:SYSTEM_MESSAGE
-        },
-        ...messages
+    messages: [
+      {
+        role: "system",
+        content: SYSTEM_MESSAGE,
+      },
+      ...messages,
     ],
-    tools:{
-        fetchTranscript:fetchTranscript
-    }
+    tools: {
+      fetchTranscript: fetchTranscript,
+      generateTitle: generateTitle,
+      generateImage: generateImg(videoId, user?.id ?? ""),
+      getVideoDetails: tool({
+        description: "Get the details of a YouTube video",
+        parameters: z.object({
+          videoId: z.string().describe("The video ID to get the details for"),
+        }),
+        execute: async ({ videoId }) => {
+          const videoDetails = await getVideoDetails(videoId);
+          return { videoDetails };
+        },
+      }),
+      extractVideoId: tool({
+        description: "Extract the video ID from a URL",
+        parameters: z.object({
+          url: z.string().describe("The URL to extract the video ID from"),
+        }),
+        execute: async ({ url }) => {
+          const videoId = await getVideoIdFromUrl(url);
+          return { videoId };
+        },
+      }),
+    },
   });
 
   //   console.log(messages, videoId);

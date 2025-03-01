@@ -28,7 +28,7 @@ const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
   const imageList: Thumbnail[] = images || [];
 
   return (
-    <div className="flex flex-col rounded-xl p-4 border">
+    <div className="flex flex-col dark:border-gray-600 rounded-xl p-4 border">
       <div className="min-w-52">
         <Usage
           featureFlag={FeatureFlag.IMG_GENERATION}
