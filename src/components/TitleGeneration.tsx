@@ -55,10 +55,10 @@ const TitleGeneration = ({ videoId }: { videoId: string }) => {
         {titles?.map((title) => (
           <div
             key={title._id}
-            className="group relative p-4 rounded-lg border border-gray-100 bg-gray-50 hover:border-blue-100 hover:bg-blue-50 transition-all duration-200"
+            className="group relative p-4 rounded-lg border border-gray-100 dark:border-gray-500 bg-gray-50 dark:bg-gray-700 hover:border-blue-100 hover:bg-blue-50 transition-all duration-200"
           >
             <div className="flex items-start justify-between gap-4">
-              <p className="text-sm text-gray-900 leading-relaxed">
+              <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed">
                 {" "}
                 {title.title}
               </p>
@@ -68,7 +68,7 @@ const TitleGeneration = ({ videoId }: { videoId: string }) => {
                 className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-1.5hover:bg-blue-100 rounded-md"
                 title="Copy to clipboard"
               >
-                <Copy className="w-4 h-4 text-blue-600" />
+                <Copy className="w-4 h-4 text-blue-600 dark:text-blue-300 cursor-pointer" />
               </button>
             </div>
           </div>

@@ -41,7 +41,7 @@ export async function ImgGeneration(prompt: string, videoId: string) {
 
   //Generate the image using Together AI
   const imageResponse = await experimental_generateImage({
-    model: togetherai.image("black-forest-labs/FLUX.1-schnell-Free"),
+    model: together.image("black-forest-labs/FLUX.1-schnell-Free"),
     prompt: prompt,
     size: IMG_SIZE,
     n: 1,

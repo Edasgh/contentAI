@@ -46,7 +46,7 @@ const Usage = ({
             value={100}
             className="h-3 rounded-full bg-gray-200 [&>*]:bg-red-600"
           />
-          <p className="text-red-600 text-sm mt-2">
+          <p className="text-red-600 dark:text-red-400 text-sm mt-2">
             You've used all available tokens. Please upgrade your plan to
             continue using this feature.
           </p>
@@ -101,11 +101,11 @@ const Usage = ({
         />
 
         {progress >= 100 ? (
-          <p className="text-sm text-red-600 mt-2">
+          <p className="text-sm text-red-600 dark:text-red-400 mt-2">
             You have reached your usage limit
           </p>
         ) : progress >= 80 ? (
-          <p className="text-sm text-red-600 mt-2">
+          <p className="text-sm text-red-600 dark:text-red-400 mt-2">
             Warning: You are approaching your usage limit
           </p>
         ) : null}
