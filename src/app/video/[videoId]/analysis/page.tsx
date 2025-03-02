@@ -7,7 +7,7 @@ import Usage from "@/components/Usage";
 import YoutubeVideoDetails from "@/components/youtubeVideoDetails";
 import { FeatureFlag } from "@/features/flags";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Doc } from "../../../../../convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
 import { createOrGetVideo } from "@/actions/createOrGetVideo";
@@ -20,7 +20,7 @@ const AnalysisPage = () => {
   );
   const { user } = useUser();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!user?.id) return;
     const fetchVideo = async () => {
       const response = await createOrGetVideo(videoId as string, user.id);

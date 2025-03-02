@@ -16,7 +16,7 @@ export interface VideoResponse {
 
 export async function createOrGetVideo(
   videoId: string,
-  userId: string
+  userId: string,
 ): Promise<VideoResponse> {
   const convex = getConvexClient();
   const user = await currentUser();
