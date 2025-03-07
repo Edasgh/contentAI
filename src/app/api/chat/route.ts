@@ -17,7 +17,7 @@ const google = createGoogleGenerativeAI({
   baseURL: "https://generativelanguage.googleapis.com/v1beta",
 });
 
-const model = google("gemini-1.5-flash");
+const model = google("gemini-2.0-flash-001");
 
 export async function POST(req: Request) {
   const { messages, videoId } = await req.json();
@@ -71,10 +71,10 @@ export async function POST(req: Request) {
     },
   });
 
-  console.log(
-    "GEMINI RESULT MESSAGES FROM CHAT ROUTE :\n",
-    (await result.response).messages
-  );
-  console.log(messages, videoId);
+  // console.log(
+  //   "GEMINI RESULT MESSAGES FROM CHAT ROUTE :\n",
+  //   (await result.response).messages
+  // );
+  // console.log(messages, videoId);
   return result.toDataStreamResponse();
 }

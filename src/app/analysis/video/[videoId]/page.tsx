@@ -11,8 +11,9 @@ import { useLayoutEffect, useState } from "react";
 import { Doc } from "../../../../../convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
 import { createOrGetVideo } from "@/actions/createOrGetVideo";
+import {  toast } from "react-toastify";
 
-const AnalysisPage = () => {
+export default function VideoAnalysis(){
   const params = useParams<{ videoId: string }>();
   const { videoId } = params;
   const [video, setVideo] = useState<Doc<"videos"> | null | undefined>(
@@ -25,6 +26,7 @@ const AnalysisPage = () => {
     const fetchVideo = async () => {
       const response = await createOrGetVideo(videoId as string, user.id);
       if (!response.success) {
+        toast.error("Something went Wrong!");
         console.log("error creating or getting video", response.error);
       } else {
         setVideo(response.data);
@@ -98,4 +100,3 @@ const AnalysisPage = () => {
   );
 };
 
-export default AnalysisPage;

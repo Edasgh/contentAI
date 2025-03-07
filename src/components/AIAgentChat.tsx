@@ -6,7 +6,8 @@ import ReactMarkdown from "react-markdown";
 import { useEffect, useRef } from "react";
 import { useSchematicFlag } from "@schematichq/schematic-react";
 import { FeatureFlag } from "@/features/flags";
-import { ImageIcon, LetterText, PenIcon } from "lucide-react";
+import { BotIcon, ImageIcon, LetterText, PenIcon } from "lucide-react";
+import { toast } from "react-toastify";
 
 interface ToolInvocation {
   toolCallId: string;
@@ -34,6 +35,9 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   const IsImgGenEnabled = useSchematicFlag(FeatureFlag.IMG_GENERATION);
   const IsTitleGenEnabled = useSchematicFlag(FeatureFlag.TITLE_GENERATIONS);
   const IsVideoAnalysisEnabled = useSchematicFlag(FeatureFlag.ANALYSE_VIDEO);
+
+  
+
 
   async function generateScript() {
     const randomId = Math.random().toString(36).substring(2, 15);
@@ -72,6 +76,39 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   useEffect(() => {
     msgRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+
+    useEffect(() => {
+      let toastId;
+
+      switch (status) {
+        case "submitted":
+          toastId = toast("Agent is thinking...", {
+            toastId: toastId,
+            icon: <BotIcon className="w-4 h-4" />,
+            autoClose:2000
+          });
+          break;
+        case "streaming":
+          toastId = toast("Agent is replying...", {
+            toastId: toastId,
+            icon: <BotIcon className="w-4 h-4" />,
+            autoClose: 2000,
+          });
+          break;
+        case "error":
+          toastId = toast("Whoops! Something went wrong, please try again.", {
+            toastId: toastId,
+            icon: <BotIcon className="w-4 h-4" />,
+            autoClose: 2000,
+          });
+          break;
+        case "ready":
+          toast.dismiss(toastId);
+
+          break;
+      }
+    }, [status]);
 
   return (
     <div className="flex flex-col h-full">
@@ -184,6 +221,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
               status === "submitted" ||
               !IsVideoAnalysisEnabled
             }
+            className="cursor-pointer disabled:cursor-not-allowed"
             suppressHydrationWarning
             type="submit"
           >

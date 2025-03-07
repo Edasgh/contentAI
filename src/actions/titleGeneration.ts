@@ -12,7 +12,7 @@ const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey!);
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
+  model: "gemini-2.0-flash-001",
   systemInstruction:
     "You are a helpful youtube video creator assistant that creates high quality SEO friendly concise video titles",
 });
@@ -35,9 +35,9 @@ export async function titleGeneration(
       `Please provide ONE concise YouTube title (and nothing else) for this video. Focus on the main points and key takeaways, it should be SEO friendly and 100 characters or less:\n\n${videoSummary}\n\n${considerations}. If videoSummary & considerations aren't given, generate transcripts and summarize that and generate a relevant title from that summary`
     );
 
-    const res = result.response.text();
+    const title = result.response.text();
 
-    if (!res) {
+    if (!title) {
       return {
         error: "Failed to generate title (system error) ",
       };
@@ -46,7 +46,7 @@ export async function titleGeneration(
     await convexClient.mutation(api.titles.generate, {
       videoId,
       userId: user.id,
-      title: res,
+      title: title,
     });
 
     await client.track({
@@ -58,7 +58,8 @@ export async function titleGeneration(
         id: user.id,
       },
     });
-    console.log("Title generated :", res);
+    console.log("Title generated :", title);
+    return title;
   } catch (error) {
     console.error("Error generating title : ", error);
     throw new Error("Failed to generate title");

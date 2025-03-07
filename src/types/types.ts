@@ -1,3 +1,5 @@
+import { Id } from "../../convex/_generated/dataModel";
+
 export interface ChannelDetails{
     title:string;
     thumbnail:string;
@@ -13,4 +15,11 @@ export interface VideoDetails{
     channel:ChannelDetails;
     publishedAt:string;
 
+}
+
+export interface Video {
+  _id: Id<"videos">;
+  _creationTime: number;
+  videoId: string;
+  userId: string;
 }

@@ -6,10 +6,10 @@ export async function analyseYoutubeVideo(formData:FormData) {
     const url = formData.get("url")?.toString();
     if(!url) return;
 
-    const videoId=getVideoIdFromUrl(url); // TODO : fix it
+    const videoId=await getVideoIdFromUrl(url); // TODO : fix it
     // console.log("videoId : ",videoId);
     if(!videoId) return;
 
     //redirect to the new post
-    redirect(`/video/${videoId}/analysis`);
+    redirect(`/analysis/video/${videoId}`);
 }

@@ -7,7 +7,7 @@ export function getVideoIdFromUrl(url: string): string | null {
     // shorts url format : https://youtube.com/shorts/VIDEO_ID
     videoId = url.split("shorts/")[1]?.split(/[?#]/)[0] || null;
   } else if (url.includes("v=")) {
-    // shorts url format : https://youtube.com/watch?v=VIDEO_ID
+    //url format : https://youtube.com/watch?v=VIDEO_ID
     videoId = url.split("v=")[1]?.split("&")[0] || null;
   }
 

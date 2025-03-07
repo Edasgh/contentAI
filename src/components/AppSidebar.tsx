@@ -4,6 +4,7 @@ import {
   ChevronUpIcon,
   HomeIcon,
   LucidePackage,
+  PenIcon,
   TerminalSquareIcon,
 } from "lucide-react";
 import {
@@ -31,7 +32,6 @@ interface Video {
   videoId: string;
   userId: string;
 }
-
 
 const SearchHistory = ({
   videoId,
@@ -75,7 +75,7 @@ const SearchHistory = ({
         >
           <a
             className="text-red-700 dark:text-red-300"
-            href={`http://localhost:3000/video/${videoId}/analysis`}
+            href={`analysis/video/${videoId}`}
             suppressHydrationWarning
           >
             <span className="line-clamp-2" suppressHydrationWarning>
@@ -83,7 +83,7 @@ const SearchHistory = ({
                 className="text-inherit flex gap-2 justify-center items-center"
                 suppressHydrationWarning
               >
-                <div
+                <span
                   className="w-2 h-2 bg-red-400 rounded-full animate-pulse"
                   suppressHydrationWarning
                 />
@@ -118,7 +118,7 @@ const SearchHistory = ({
                 >
                   <a
                     className="text-gray-700 dark:text-gray-50"
-                    href={`http://localhost:3000/video/${videoId}/analysis`}
+                    href={`analysis/video/${videoId}`}
                     suppressHydrationWarning
                   >
                     <span className="line-clamp-2" suppressHydrationWarning>
@@ -144,7 +144,7 @@ const SearchHistory = ({
               >
                 <a
                   className="text-blue-400 dark:text-blue-300"
-                  href={`/video/${videoId}/analysis`}
+                  href={`analysis/video/${videoId}`}
                   suppressHydrationWarning
                 >
                   <span className="line-clamp-2" suppressHydrationWarning>
@@ -153,7 +153,7 @@ const SearchHistory = ({
                         className="text-inherit flex gap-2 justify-center items-center animate-pulse"
                         suppressHydrationWarning
                       >
-                        <div
+                        <span
                           className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
                           suppressHydrationWarning
                         />
@@ -173,6 +173,7 @@ const SearchHistory = ({
 
 export function AppSidebar() {
   const [open, setOpen] = useState(true);
+
   const videos = useQuery(api.videos.get, {});
   const videoList: Video[] = videos || [];
 
@@ -187,6 +188,19 @@ export function AppSidebar() {
                   <a className="text-gray-700 dark:text-gray-50" href={"/"}>
                     <HomeIcon />
                     <span>Home</span>
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <a
+                    className="text-gray-700 dark:text-gray-50"
+                    href={
+                      "/analysis"
+                    }
+                  >
+                    <PenIcon />
+                    <span>Analyse New Video</span>
                   </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -215,7 +229,11 @@ export function AppSidebar() {
               </SidebarMenuItem>
 
               {videoList?.map((item) => (
-                <SearchHistory open={open} key={item._id} videoId={item.videoId} />
+                <SearchHistory
+                  open={open}
+                  key={item._id}
+                  videoId={item.videoId}
+                />
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
@@ -230,9 +248,7 @@ export function AppSidebar() {
                 <LucidePackage />
                 <span className="flex flex-col justify-start items-start">
                   <span className="text-xl">Upgrade plan</span>
-                  <span className="text-sm">
-                    Get access to more features
-                  </span>
+                  <span className="text-sm">Get access to more features</span>
                 </span>
               </a>
             </SidebarMenuButton>
