@@ -30,7 +30,7 @@ export default function StoreProvider({ children }: { children: ReactNode }) {
     }
   }
   // Fetch videos using Convex
-  const videosFromConvex = useQuery(api.videos.get, {});
+  const videosFromConvex = useQuery(api.videos.get, {}) || [];
 
   // Dispatch action when videos are available
   useEffect(() => {
