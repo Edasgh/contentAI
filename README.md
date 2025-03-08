@@ -43,40 +43,29 @@ Agentube is an AI-powered platform that helps content creators analyze, transcri
    npm install
    ```
 3. Create a `.env.local` file and configure environment variables:
+
    ```sh
 
    ```
 
-# Clerk
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_publishable_key
+        CLERK_SECRET_KEY=sk_test_your_clerk_secret_key
 
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_publishable_key
-CLERK_SECRET_KEY=sk_test_your_clerk_secret_key
+        NEXT_PUBLIC_SCHEMATIC_PUBLISHABLE_KEY=api_your_schematic_publishable_key
+        SCHEMATIC_API_KEY=sch_dev_your_schematic_api_key
 
-# Schematic
+        YOUTUBE_API_KEY=your_youtube_api_key
 
-NEXT_PUBLIC_SCHEMATIC_PUBLISHABLE_KEY=api_your_schematic_publishable_key
-SCHEMATIC_API_KEY=sch_dev_your_schematic_api_key
+        CONVEX_DEPLOYMENT=dev:your-convex-deployment # team: your-team, project: your-project
 
-# Youtube API
+        NEXT_PUBLIC_CONVEX_URL=https://your-convex-deployment.convex.cloud
 
-YOUTUBE_API_KEY=your_youtube_api_key
+        GOOGLE_GENERATIVE_AI_API_KEY=your_gemini_api_key
 
-# Deployment used by `npx convex dev`
+        #together ai api key
+        TOGETHER_API_KEY=sk-ant-api03-your_together_ai_api_key
 
-CONVEX_DEPLOYMENT=dev:your-convex-deployment # team: your-team, project: your-project
-
-NEXT_PUBLIC_CONVEX_URL=https://your-convex-deployment.convex.cloud
-
-# Gemini
-
-GOOGLE_GENERATIVE_AI_API_KEY=your_gemini_api_key
-
-#together ai api key
-TOGETHER_API_KEY=sk-ant-api03-your_together_ai_api_key
-
-# BASE URL
-
-NEXT_PUBLIC_BASE_URL="http://localhost:3000"
+        NEXT_PUBLIC_BASE_URL="http://localhost:3000"
 
 ````
 4. Run the development server:
