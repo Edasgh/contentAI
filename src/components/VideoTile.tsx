@@ -39,7 +39,7 @@ export default function VideoTile({
         href={`${process.env.NEXT_PUBLIC_BASE_URL}/analysis/video/${videoId}`}
       >
         <div className="p-5 border border-gray-300 dark:border-gray-600 rounded-xl">
-          <div className="flex justify-between items-start">
+          <div className="flex flex-wrap justify-between items-start">
             <div className="flex gap-3 items-center">
               <Video />
               <div className="flex gap-2 flex-col justify-start items-start">
@@ -62,7 +62,7 @@ export default function VideoTile({
       href={`${process.env.NEXT_PUBLIC_BASE_URL}/analysis/video/${videoId}`}
     >
       <div className="p-5 border border-gray-300 dark:border-gray-600 rounded-xl">
-        <div className="flex justify-between items-start">
+        <div className="flex flex-wrap gap-3 justify-between items-start">
           <div className="flex gap-3 items-center">
             <Video />
             <div className="flex gap-2 flex-col justify-start items-start">

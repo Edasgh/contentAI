@@ -167,7 +167,6 @@ const UsageCard = ({
 };
 
 const Dashboard = () => {
-  const [open, setOpen] = useState(true);
   const videos = useAppSelector((state) => state?.SearchHistory.videos);
 
   const videoList: Video[] = videos || [];
