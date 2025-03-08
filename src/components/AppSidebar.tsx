@@ -18,13 +18,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "./ui/sidebar";
-import { useLayoutEffect, useState } from "react";
-import { useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { useEffect, useState } from "react";
 import { Id } from "../../convex/_generated/dataModel";
 import { VideoDetails } from "@/types/types";
 import { getVideoDetails } from "@/actions/getVideoDetails";
 import { useParams } from "next/navigation";
+import { useAppSelector } from "@/lib/store/hooks";
+import Link from "next/link";
 
 interface Video {
   _id: Id<"videos">;
@@ -46,7 +46,7 @@ const SearchHistory = ({
   const params = useParams<{ videoId: string }>();
   const { videoId: paramVideoId } = params;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchVideoDetails = async () => {
       const videoDetails = await getVideoDetails(videoId);
       //   console.log("video details",videoDetails);
@@ -73,9 +73,9 @@ const SearchHistory = ({
           suppressHydrationWarning
           asChild
         >
-          <a
+          <Link
             className="text-red-700 dark:text-red-300"
-            href={`analysis/video/${videoId}`}
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/analysis/video/${videoId}`}
             suppressHydrationWarning
           >
             <span className="line-clamp-2" suppressHydrationWarning>
@@ -93,7 +93,7 @@ const SearchHistory = ({
                 >{`Video : ${videoId}`}</p>
               </div>
             </span>
-          </a>
+          </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
     );
@@ -116,9 +116,9 @@ const SearchHistory = ({
                   suppressHydrationWarning
                   asChild
                 >
-                  <a
+                  <Link
                     className="text-gray-700 dark:text-gray-50"
-                    href={`analysis/video/${videoId}`}
+                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/analysis/video/${videoId}`}
                     suppressHydrationWarning
                   >
                     <span className="line-clamp-2" suppressHydrationWarning>
@@ -128,7 +128,7 @@ const SearchHistory = ({
                         </p>{" "}
                       </div>
                     </span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </>
@@ -142,9 +142,9 @@ const SearchHistory = ({
                 suppressHydrationWarning
                 asChild
               >
-                <a
+                <Link
                   className="text-blue-400 dark:text-blue-300"
-                  href={`analysis/video/${videoId}`}
+                  href={`${process.env.NEXT_PUBLIC_BASE_URL}/analysis/video/${videoId}`}
                   suppressHydrationWarning
                 >
                   <span className="line-clamp-2" suppressHydrationWarning>
@@ -161,7 +161,7 @@ const SearchHistory = ({
                       </p>
                     </div>
                   </span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )}
@@ -173,10 +173,9 @@ const SearchHistory = ({
 
 export function AppSidebar() {
   const [open, setOpen] = useState(true);
+  const videos = useAppSelector((state) => state.SearchHistory.videos);
 
-  const videos = useQuery(api.videos.get, {});
   const videoList: Video[] = videos || [];
-
   return (
     <Sidebar className="mt-16">
       <SidebarContent>
@@ -185,23 +184,24 @@ export function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <a className="text-gray-700 dark:text-gray-50" href={"/"}>
+                  <Link
+                    className="text-gray-700 dark:text-gray-50"
+                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/`}
+                  >
                     <HomeIcon />
                     <span>Home</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <a
+                  <Link
                     className="text-gray-700 dark:text-gray-50"
-                    href={
-                      "/analysis"
-                    }
+                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/analysis`}
                   >
                     <PenIcon />
                     <span>Analyse New Video</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
@@ -228,6 +228,18 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
+              {open && (
+                <>
+                  {videoList?.length === 0 && (
+                    <SidebarMenuItem className="ml-14">
+                      <p className="text-gray-500 dark:text-gray-400">
+                        No video searched...
+                      </p>
+                    </SidebarMenuItem>
+                  )}
+                </>
+              )}
+
               {videoList?.map((item) => (
                 <SearchHistory
                   open={open}
@@ -241,16 +253,16 @@ export function AppSidebar() {
         <SidebarFooter className="sticky bottom-1/7">
           <SidebarMenuItem className="list-none">
             <SidebarMenuButton className="w-fit h-fit px-4" asChild>
-              <a
+              <Link
                 className="text-gray-700 flex justify-start items-center dark:text-gray-50"
-                href={"/manage_plan"}
+                href={`${process.env.NEXT_PUBLIC_BASE_URL}/manage_plan`}
               >
                 <LucidePackage />
                 <span className="flex flex-col justify-start items-start">
                   <span className="text-xl">Upgrade plan</span>
                   <span className="text-sm">Get access to more features</span>
                 </span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarFooter>
