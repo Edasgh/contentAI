@@ -7,7 +7,6 @@ import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { getVideos } from "@/lib/store/slices/SearchHistorySlice";
 import Cookies from "js-cookie";
-import { useUser } from "@clerk/nextjs";
 
 export default function StoreProvider({ children }: { children: ReactNode }) {
   const storeRef = useRef<AppStore | null>(null);
@@ -31,17 +30,16 @@ export default function StoreProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  const {user} = useUser();
 
   // Fetch videos using Convex
-  const videosFromConvex = useQuery(api.videos.get, {}) || [];
+  // const videosFromConvex = useQuery(api.videos.get, {}) || [];
 
-  // Dispatch action when videos are available
-  useEffect(() => {
-    if (videosFromConvex && videosFromConvex.length !== 0) {
-      storeRef.current?.dispatch(getVideos(videosFromConvex));
-    }
-  }, [videosFromConvex]); // Runs whenever `videosFromConvex` updates
+  // // Dispatch action when videos are available
+  // useEffect(() => {
+  //   if (videosFromConvex && videosFromConvex.length !== 0) {
+  //     storeRef.current?.dispatch(getVideos(videosFromConvex));
+  //   }
+  // }, [videosFromConvex]); // Runs whenever `videosFromConvex` updates
 
   // Save Redux store to cookies whenever it updates
   useEffect(() => {
