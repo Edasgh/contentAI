@@ -3,6 +3,7 @@ import {
   ChevronDown,
   ChevronUpIcon,
   HomeIcon,
+  LayoutDashboard,
   LucidePackage,
   PenIcon,
   TerminalSquareIcon,
@@ -173,7 +174,7 @@ const SearchHistory = ({
 
 export function AppSidebar() {
   const [open, setOpen] = useState(true);
-  const videos = useAppSelector((state) => state.SearchHistory.videos);
+  const videos = useAppSelector((state) => state?.SearchHistory?.videos);
 
   const videoList: Video[] = videos || [];
   return (
@@ -190,6 +191,18 @@ export function AppSidebar() {
                   >
                     <HomeIcon />
                     <span>Home</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link
+                    className="text-gray-700 dark:text-gray-50"
+                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/analysis/dashboard`}
+                  >
+                    <LayoutDashboard />
+                    {/* <span>Usage</span> */}
+                    <span>Dashboard</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

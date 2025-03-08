@@ -41,7 +41,7 @@ const Transcription = ({ videoId }: { videoId: string }) => {
   }
 
   return (
-    <div className="border border-gray-200 dark:border-gray-600 pb-0 p-4 rounded-xl gap-4 flex flex-col">
+    <div className="border border-gray-200 dark:border-gray-600 shadow-md pb-0 p-4 rounded-xl gap-4 flex flex-col">
       <Usage featureFlag={FeatureFlag.TRANSCRIPTION} title="Transcripts" />
 
       {!featureUsageExceeded ? (

@@ -36,26 +36,23 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   const IsTitleGenEnabled = useSchematicFlag(FeatureFlag.TITLE_GENERATIONS);
   const IsVideoAnalysisEnabled = useSchematicFlag(FeatureFlag.ANALYSE_VIDEO);
 
-  
-
-
   async function generateScript() {
     const randomId = Math.random().toString(36).substring(2, 15);
     const userMessage: Message = {
       id: `generate-script-${randomId}`,
       role: "user",
-      content:
-        "Generate a step by step shooting script for this video that I can use on my own channel to produce a video that is similar to this one, don't do any other steps such as generating an image, just generate the script only!",
+      content: `Generate a step by step shooting script for this video : ${videoId} so, that I can use on my own channel to produce a video that is similar to this one, don't do any other steps such as generating an image, just generate the script only!`,
     };
 
     append(userMessage);
   }
+
   async function generateTitle() {
     const randomId = Math.random().toString(36).substring(2, 15);
     const userMessage: Message = {
       id: `generate-script-${randomId}`,
       role: "user",
-      content: "Generate a title for this video.",
+      content: `Generate a strong SEO title for this video: ${videoId} that conveys the concept of the video. The title should be a single line and should be a maximum of 60 characters. The title should be SEO optimized.`,
     };
 
     append(userMessage);
@@ -65,7 +62,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
     const userMessage: Message = {
       id: `generate-script-${randomId}`,
       role: "user",
-      content: "Generate a thumbnail for this video.",
+      content: `Generate a Youtube Thumbnail for this video: ${videoId} that conveys the same message as the video. The thumbnail should be a high-quality image that is 1280x720 pixels in size. The thumbnail should be a single image and not a video. The thumbnail should be in .webp format. The thumbnail should generate interest and drive engagement for the video on Youtube.`,
     };
 
     append(userMessage);
@@ -77,38 +74,37 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
     msgRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+    let toastId;
 
-    useEffect(() => {
-      let toastId;
+    switch (status) {
+      case "submitted":
+        toastId = toast("Agent is thinking...", {
+          toastId: toastId,
+          icon: <BotIcon className="w-4 h-4" />,
+          autoClose: 2000,
+        });
+        break;
+      case "streaming":
+        toastId = toast("Agent is replying...", {
+          toastId: toastId,
+          icon: <BotIcon className="w-4 h-4" />,
+          autoClose: 2000,
+        });
+        break;
+      case "error":
+        toastId = toast("Whoops! Something went wrong, please try again.", {
+          toastId: toastId,
+          icon: <BotIcon className="w-4 h-4" />,
+          autoClose: 2000,
+        });
+        break;
+      case "ready":
+        toast.dismiss(toastId);
 
-      switch (status) {
-        case "submitted":
-          toastId = toast("Agent is thinking...", {
-            toastId: toastId,
-            icon: <BotIcon className="w-4 h-4" />,
-            autoClose:2000
-          });
-          break;
-        case "streaming":
-          toastId = toast("Agent is replying...", {
-            toastId: toastId,
-            icon: <BotIcon className="w-4 h-4" />,
-            autoClose: 2000,
-          });
-          break;
-        case "error":
-          toastId = toast("Whoops! Something went wrong, please try again.", {
-            toastId: toastId,
-            icon: <BotIcon className="w-4 h-4" />,
-            autoClose: 2000,
-          });
-          break;
-        case "ready":
-          toast.dismiss(toastId);
-
-          break;
-      }
-    }, [status]);
+        break;
+    }
+  }, [status]);
 
   return (
     <div className="flex flex-col h-full">

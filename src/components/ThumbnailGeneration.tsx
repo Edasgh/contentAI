@@ -8,6 +8,7 @@ import { useSchematicEntitlement } from "@schematichq/schematic-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
+import Link from "next/link";
 
 interface Thumbnail{
     url: string | null;
@@ -33,7 +34,7 @@ const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
   const imageList:Thumbnail[] = images || [];
 
   return (
-    <div className="flex flex-col dark:border-gray-600 rounded-xl p-4 border">
+    <div className="flex flex-col dark:border-gray-600 shadow-md rounded-xl p-4 border">
       <div className="min-w-52">
         <Usage
           featureFlag={FeatureFlag.IMG_GENERATION}
@@ -49,13 +50,15 @@ const ThumbnailGeneration = ({ videoId }: { videoId: string }) => {
               key={img._id}
               className="flex-none w-[200px] h-[110px] rounded-lg overflow-hidden"
             >
-              <Image
-                src={img.url??""}
-                alt="Generated thumbnail"
-                width={200}
-                height={110}
-                className="object-cover w-full h-full"
-              />
+              <Link href={img.url ?? ""} target="_blank">
+                <Image
+                  src={img.url ?? ""}
+                  alt="Generated thumbnail"
+                  width={200}
+                  height={110}
+                  className="object-cover w-full h-full"
+                />
+              </Link>
             </div>
           ))}
         </div>

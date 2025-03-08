@@ -15,7 +15,8 @@ const YoutubeVideoForm = () => {
         name="url"
         className="border-[.4px] dark:border-gray-500 "
         type="text"
-        placeholder="Enter Video URL"
+        placeholder="Paste a video URL from YouTube"
+        title="Enter Video URL"
         suppressHydrationWarning
       />
       <AnalyseButton />

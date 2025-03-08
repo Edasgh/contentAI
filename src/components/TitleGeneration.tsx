@@ -40,7 +40,7 @@ const TitleGeneration = ({ videoId }: { videoId: string }) => {
   }
 
   return (
-    <div className="flex flex-col dark:border-gray-600 rounded-xl p-4 border">
+    <div className="flex flex-col dark:border-gray-600 shadow-md rounded-xl p-4 border">
       <div className="min-w-52">
         <Usage
           featureFlag={FeatureFlag.TITLE_GENERATIONS}

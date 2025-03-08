@@ -71,7 +71,7 @@ export default function VideoAnalysis(){
 
         <div className="order-2 lg:order-1 flex flex-col gap-4 bg-white dark:bg-gray-800 lg:border-r border-gray-200 dark:border-gray-500 p-6">
           {/* Analysis section */}
-          <div className="flex flex-col gap-4 p-4 border border-gray-200 dark:border-gray-500 rounded-xl">
+          <div className="flex flex-col gap-4 p-4 border border-gray-200 dark:border-gray-500 shadow-md rounded-xl">
             <Usage
               featureFlag={FeatureFlag.ANALYSE_VIDEO}
               title="Analyse Video"
