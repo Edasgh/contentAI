@@ -34,7 +34,7 @@ export default function StoreProvider({ children }: { children: ReactNode }) {
   const {user} = useUser();
 
   // Fetch videos using Convex
-  const videosFromConvex = user?.id ? useQuery(api.videos.get, {}) : [];
+  const videosFromConvex = useQuery(api.videos.get, {}) || [];
 
   // Dispatch action when videos are available
   useEffect(() => {
