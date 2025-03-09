@@ -38,8 +38,13 @@ const UsageCard = ({
   // <div className="flex flex-col gap-4 p-4 border border-gray-200 dark:border-gray-500 rounded-xl">
   if (isPending) {
     return (
-      <div className="flex flex-col gap-4 p-4 border border-gray-200 dark:border-gray-500 shadow-xl rounded-xl">
-        <div className="text-gray-500 text-center py-4">Loading...</div>
+      <div className="flex flex-col gap-4 p-4 border border-gray-200 dark:border-gray-500 shadow-xl dark:shadow-2xl rounded-xl">
+        <div className="flex justify-between items-center mb-4 gap-7">
+          <span className="w-52 h-2.5  bg-gray-800 dark:bg-gray-200 rounded-lg animate-pulse" />
+          <div className="px-4 py-2 bg-gray-200 rounded-lg animate-pulse" />
+        </div>
+        <div className="relative bg-gray-300 dark:bg-gray-700 rounded-xl w-36 h-2 animate-pulse" />
+        <div className="relative bg-gray-300 dark:bg-gray-700 rounded-xl w-12 h-3 animate-pulse" />
       </div>
     );
   }
@@ -108,7 +113,7 @@ const UsageCard = ({
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 border border-gray-200 dark:border-gray-500 shadow-xl rounded-xl">
+    <div className="flex flex-col gap-4 p-4 border border-gray-200 dark:border-gray-500 shadow-xl dark:shadow-2xl rounded-xl">
       {featureUsage !== 0 && (
         <div className="flex gap-3">
           {featureFlag === FeatureFlag.ANALYSE_VIDEO ? (
