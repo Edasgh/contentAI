@@ -107,7 +107,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   }, [status]);
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col p-3 border border-gray-200 shadow-gray-200 dark:border-gray-600 dark:shadow-gray-600 shadow-md rounded-md h-full">
       <div className="hidden lg:block px-4 pb-3 border-b border-gray-100 dark:border-gray-700">
         <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-300">
           AI Agent
@@ -188,7 +188,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
       </div>
 
       {/* Input Form */}
-      <div className="border-t border-gray-100 dark:border-gray-600 p-4 bg-white dark:bg-gray-700">
+      <div className="border-t border-gray-100 dark:border-gray-600 p-4 bg-white dark:bg-gray-700 rounded-md">
         <form
           onSubmit={handleSubmit}
           className="flex gap-2"

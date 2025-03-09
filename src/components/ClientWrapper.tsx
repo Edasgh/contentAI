@@ -4,6 +4,8 @@
 import { SchematicProvider } from "@schematichq/schematic-react";
 import SchematicWrapped from "./SchematicWrapped";
 import ConvexClientProvider from "./ConvexClientProvider";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import StoreProvider from "@/app/StoreProvider";
 
 export default function ClientWrapper({
   children,
@@ -23,7 +25,12 @@ export default function ClientWrapper({
   return (
     <ConvexClientProvider>
       <SchematicProvider publishableKey={schematicKey}>
-        <SchematicWrapped>{children}</SchematicWrapped>
+        <SchematicWrapped>
+          <SignedOut>{children}</SignedOut>
+          <SignedIn>
+            <StoreProvider>{children}</StoreProvider>
+          </SignedIn>
+        </SchematicWrapped>
       </SchematicProvider>
     </ConvexClientProvider>
   );

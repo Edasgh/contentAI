@@ -5,7 +5,6 @@ import ClientWrapper from "@/components/ClientWrapper";
 import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ToastContainer } from "react-toastify";
-import StoreProvider from "./StoreProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,10 +40,8 @@ export default function RootLayout({
         >
           <ToastContainer position="bottom-right" theme={"light"} />
           <ClientWrapper>
-            <StoreProvider>
-              <Header />
-              {children}
-            </StoreProvider>
+            <Header />
+            {children}
           </ClientWrapper>
         </ThemeProvider>
       </body>

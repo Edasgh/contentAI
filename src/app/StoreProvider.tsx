@@ -32,14 +32,14 @@ export default function StoreProvider({ children }: { children: ReactNode }) {
 
 
   // Fetch videos using Convex
-  // const videosFromConvex = useQuery(api.videos.get, {}) || [];
+  const videosFromConvex = useQuery(api.videos.get, {}) || [];
 
-  // // Dispatch action when videos are available
-  // useEffect(() => {
-  //   if (videosFromConvex && videosFromConvex.length !== 0) {
-  //     storeRef.current?.dispatch(getVideos(videosFromConvex));
-  //   }
-  // }, [videosFromConvex]); // Runs whenever `videosFromConvex` updates
+  // Dispatch action when videos are available
+  useEffect(() => {
+    if (videosFromConvex && videosFromConvex.length !== 0) {
+      storeRef.current?.dispatch(getVideos(videosFromConvex));
+    }
+  }, [videosFromConvex]); // Runs whenever `videosFromConvex` updates
 
   // Save Redux store to cookies whenever it updates
   useEffect(() => {
