@@ -50,7 +50,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   async function generateTitle() {
     const randomId = Math.random().toString(36).substring(2, 15);
     const userMessage: Message = {
-      id: `generate-script-${randomId}`,
+      id: `generate-title-${randomId}`,
       role: "user",
       content: `Generate a strong SEO title for this video: ${videoId} that conveys the concept of the video. The title should be a single line and should be a maximum of 60 characters. The title should be SEO optimized.`,
     };
@@ -60,7 +60,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   async function generateImage() {
     const randomId = Math.random().toString(36).substring(2, 15);
     const userMessage: Message = {
-      id: `generate-script-${randomId}`,
+      id: `generate-thumbnail-${randomId}`,
       role: "user",
       content: `Generate a Youtube Thumbnail for this video: ${videoId} that conveys the same message as the video. The thumbnail should be a high-quality image that is 1280x720 pixels in size. The thumbnail should be a single image and not a video. The thumbnail should be in .webp format. The thumbnail should generate interest and drive engagement for the video on Youtube.`,
     };
@@ -68,11 +68,29 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
     append(userMessage);
   }
 
+  const SYSTEM_MESSAGE_PREFIXES = [
+    "generate-script-",
+    "generate-title-",
+    "generate-thumbnail-",
+  ];
+
+  const displayMessages = messages.filter((message) => {
+    if (message.role === "assistant") return true;
+
+    if (message.role === "user") {
+      return !SYSTEM_MESSAGE_PREFIXES.some(
+        (prefix) => message.id && message.id.toString().startsWith(prefix)
+      );
+    }
+
+    return true;
+  });
+
   const msgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     msgRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [displayMessages]);
 
   useEffect(() => {
     let toastId;
@@ -117,7 +135,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 py-4">
         <div className="space-y-6">
-          {messages.length === 0 ? (
+          {displayMessages.length === 0 ? (
             <div className="flex items-center justify-center h-full min-h-[200px]">
               <div className="text-center space-y-2">
                 <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200">
@@ -129,7 +147,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
               </div>
             </div>
           ) : (
-            messages.map((message) => (
+            displayMessages.map((message) => (
               <div
                 key={message.id}
                 className={`flex ${

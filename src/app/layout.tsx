@@ -39,7 +39,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ToastContainer position="bottom-right" theme={"light"} />
+          <ToastContainer position="top-center" theme={"light"} />
           <ClientWrapper>
             <Header />
             {children}
