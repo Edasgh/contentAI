@@ -6,6 +6,7 @@ import { useSchematicEntitlement } from "@schematichq/schematic-react";
 import { Copy } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { toast } from "react-toastify";
 
 interface Title {
   _id: string;
@@ -15,7 +16,7 @@ interface Title {
 const TitleGeneration = ({ videoId }: { videoId: string }) => {
   const { user } = useUser();
   const titles = useQuery(api.titles.list, {
-    userId: user?.id??"",
+    userId: user?.id ?? "",
     videoId: videoId,
   }); // TODO : PUll from convex db
   const { value: isTitleGenerationEnabled } = useSchematicEntitlement(
@@ -24,7 +25,7 @@ const TitleGeneration = ({ videoId }: { videoId: string }) => {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    // toast.success("Copied to clipboard");
+    toast.success("Copied to clipboard");
   };
 
   if (!videoId) {

@@ -6,8 +6,16 @@ import ReactMarkdown from "react-markdown";
 import { useEffect, useRef } from "react";
 import { useSchematicFlag } from "@schematichq/schematic-react";
 import { FeatureFlag } from "@/features/flags";
-import { BotIcon, ImageIcon, LetterText, PenIcon } from "lucide-react";
+import {
+  BotIcon,
+  Copy,
+  ImageIcon,
+  LetterText,
+  PenIcon,
+  Send,
+} from "lucide-react";
 import { toast } from "react-toastify";
+import Spinner from "./Spinner";
 
 interface ToolInvocation {
   toolCallId: string;
@@ -35,6 +43,11 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   const IsImgGenEnabled = useSchematicFlag(FeatureFlag.IMG_GENERATION);
   const IsTitleGenEnabled = useSchematicFlag(FeatureFlag.TITLE_GENERATIONS);
   const IsVideoAnalysisEnabled = useSchematicFlag(FeatureFlag.ANALYSE_VIDEO);
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard");
+  };
 
   async function generateScript() {
     const randomId = Math.random().toString(36).substring(2, 15);
@@ -154,49 +167,60 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
                   message.role === "user" ? "justify-end" : "justify-start"
                 }`}
               >
-                <div
-                  className={`max-w-[85%] px-4 py-3 rounded-2xl ${
-                    message.role === "user"
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-200"
-                  }`}
-                >
-                  {/* Ensure messages are not duplicated */}
-                  {message.parts?.map((part, i) => {
-                    if (part.type === "text") {
-                      return (
-                        <div
-                          key={i}
-                          className={`prose prose-sm max-w-none ${message.role === "user" ? "text-white" : "dark:text-white"} `}
-                        >
-                          <ReactMarkdown>{part.text}</ReactMarkdown>
-                        </div>
-                      );
-                    }
-                    if (part.type === "tool-invocation") {
-                      const toolPart = part as ToolPart;
-                      return (
-                        <div
-                          key={i}
-                          className="bg-white/50 dark:bg-black rounded-lg p-2 space-y-2 text-gray-800 dark:text-gray-300"
-                        >
-                          <div className="font-medium text-xs">
-                            {formatToolCall(toolPart)}
+                <div className="flex flex-col gap-1 justify-start items-start">
+                  <div
+                    className={`max-w-[85%] px-4 py-3 rounded-2xl ${
+                      message.role === "user"
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-100 text-gray-900 dark:bg-gray-300"
+                    }`}
+                  >
+                    {/* Ensure messages are not duplicated */}
+                    {message.parts?.map((part, i) => {
+                      if (part.type === "text") {
+                        return (
+                          <div
+                            key={i}
+                            className={`prose prose-sm max-w-none ${message.role === "user" ? "text-white" : ""} `}
+                          >
+                            <ReactMarkdown>{part.text}</ReactMarkdown>
                           </div>
-                          {toolPart.toolInvocation.result && (
-                            <pre className="text-xs bg-white/75 dark:bg-white/20 p-2 rounded overflow-auto max-h-40">
-                              {JSON.stringify(
-                                toolPart.toolInvocation.result,
-                                null,
-                                2
-                              )}
-                            </pre>
-                          )}
-                        </div>
-                      );
-                    }
-                    return null;
-                  })}
+                        );
+                      }
+                      if (part.type === "tool-invocation") {
+                        const toolPart = part as ToolPart;
+                        return (
+                          <div
+                            key={i}
+                            className="bg-white/50 dark:bg-black rounded-lg p-2 space-y-2 text-gray-800 dark:text-gray-300"
+                          >
+                            <div className="font-medium text-xs">
+                              {formatToolCall(toolPart)}
+                            </div>
+                            {toolPart.toolInvocation.result && (
+                              <pre className="text-xs bg-white/75 dark:bg-white/20 p-2 rounded overflow-auto max-h-40">
+                                {JSON.stringify(
+                                  toolPart.toolInvocation.result,
+                                  null,
+                                  2
+                                )}
+                              </pre>
+                            )}
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                  </div>
+                  {message.role === "assistant" && (
+                    <button
+                      onClick={() => copyToClipboard(message.content)}
+                      className="p-1.5 hover:text-blue-100 rounded-md"
+                      title="Copy to clipboard"
+                    >
+                      <Copy className="w-4 h-4 text-blue-600 dark:text-blue-300 cursor-pointer" />
+                    </button>
+                  )}
                 </div>
               </div>
             ))
@@ -239,11 +263,13 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
             suppressHydrationWarning
             type="submit"
           >
-            {status === "streaming"
-              ? "🤖 Replying.."
-              : status === "submitted"
-                ? "🤖 Thinking.."
-                : "Send"}
+            {status === "streaming" ? (
+              <Spinner />
+            ) : status === "submitted" ? (
+              <Spinner />
+            ) : (
+              <Send />
+            )}
           </Button>
         </form>
         <div className="flex flex-col lg:flex-row gap-2 mt-2.5">

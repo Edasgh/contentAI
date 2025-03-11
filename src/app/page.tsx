@@ -1,7 +1,6 @@
 "use client";
 import Agentpulse from "@/components/Agentpulse";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import {
   Activity,
@@ -12,7 +11,6 @@ import {
   CheckCircle,
   File,
   ImageDownIcon,
-  MessageCircle,
   PenBoxIcon,
   Share,
   Video,
@@ -75,14 +73,6 @@ const features = [
     icon: Activity,
     iconBg: "bg-teal-100",
     iconColor: "text-teal-600",
-  },
-  {
-    title: "Auto-Responder for Comments",
-    description:
-      "AI-powered comment replies to keep your audience engaged and enhance community interaction.",
-    icon: MessageCircle,
-    iconBg: "bg-pink-100",
-    iconColor: "text-pink-600",
   },
   {
     title: "Social Media Content Repurposing",
@@ -219,21 +209,21 @@ export default function Home() {
           <p className="text-xl text-blue-50">
             Join creators leveraging AI to unlock content insights
           </p>
-          <div className="flex mt-12 mx-auto max-w-sm items-center space-x-2">
-            <Input
-              suppressHydrationWarning
-              type="email"
-              className="placeholder:text-white border-[0.3px] border-white focus-visible:border-white focus-visible:ring-gray-400/50"
-              placeholder="Email"
-            />
-            <Button
-              suppressHydrationWarning
-              className="cursor-pointer"
-              type="submit"
-            >
-              Join Now
+
+          <SignedIn>
+            <Button suppressHydrationWarning className="cursor-pointer my-5">
+              <Link href="/analysis">Get Started</Link>
             </Button>
-          </div>
+          </SignedIn>
+          <SignedOut>
+            <SignInButton
+              mode="modal"
+              fallbackRedirectUrl={"/"}
+              forceRedirectUrl={"/"}
+            >
+              <Button className="cursor-pointer my-5">Get Started</Button>
+            </SignInButton>
+          </SignedOut>
         </div>
       </footer>
     </div>
