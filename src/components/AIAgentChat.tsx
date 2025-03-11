@@ -9,6 +9,7 @@ import { FeatureFlag } from "@/features/flags";
 import {
   BotIcon,
   Copy,
+  GlassesIcon,
   ImageIcon,
   LetterText,
   PenIcon,
@@ -43,6 +44,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   const IsImgGenEnabled = useSchematicFlag(FeatureFlag.IMG_GENERATION);
   const IsTitleGenEnabled = useSchematicFlag(FeatureFlag.TITLE_GENERATIONS);
   const IsVideoAnalysisEnabled = useSchematicFlag(FeatureFlag.ANALYSE_VIDEO);
+  const IsAudienceAnalysisEnabled = useSchematicFlag(FeatureFlag.AUDIENCE_ANALYSIS);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -80,11 +82,22 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
 
     append(userMessage);
   }
+  async function analyseAudience() {
+    const randomId = Math.random().toString(36).substring(2, 15);
+    const userMessage: Message = {
+      id: `generate-audience-analysis-${randomId}`,
+      role: "user",
+      content: `Who is the intended target audience of this video : ${videoId} ? What is the overall sentiment?`,
+    };
+
+    append(userMessage);
+  }
 
   const SYSTEM_MESSAGE_PREFIXES = [
     "generate-script-",
     "generate-title-",
     "generate-thumbnail-",
+    "generate-audience-analysis-",
   ];
 
   const displayMessages = messages.filter((message) => {
@@ -169,7 +182,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
               >
                 <div className="flex flex-col gap-1 justify-start items-start">
                   <div
-                    className={`max-w-[85%] px-4 py-3 rounded-2xl ${
+                    className={`max-w-[30rem] px-4 py-3 rounded-2xl ${
                       message.role === "user"
                         ? "bg-blue-500 text-white"
                         : "bg-gray-100 text-gray-900 dark:bg-gray-300"
@@ -272,7 +285,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
             )}
           </Button>
         </form>
-        <div className="flex flex-col lg:flex-row gap-2 mt-2.5">
+        <div className="flex flex-wrap gap-2 mt-2.5">
           <button
             type="button"
             className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
@@ -322,6 +335,23 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
               <span>Generate a Thumbnail</span>
             ) : (
               <span>Upgrade to Generate a Thumbnail</span>
+            )}
+          </button>
+          <button
+            type="button"
+            className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
+            disabled={
+              status === "streaming" ||
+              status === "submitted" ||
+              !IsAudienceAnalysisEnabled
+            }
+            onClick={analyseAudience}
+          >
+            <GlassesIcon className="w-6 h-6" />
+            {IsAudienceAnalysisEnabled ? (
+              <span>Analyse Audience</span>
+            ) : (
+              <span>Upgrade to Analyse Audience</span>
             )}
           </button>
         </div>

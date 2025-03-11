@@ -40,12 +40,27 @@ export default defineSchema({
     .index("by_user_id", ["userId"])
     .index("by_video_id", ["videoId"])
     .index("by_user_and_video", ["userId", "videoId"]),
+  comments: defineTable({
+    videoId: v.string(),
+    userId: v.string(),
+    comments: v.array(
+      v.string()
+    ),
+  })
+    .index("by_user_id", ["userId"])
+    .index("by_video_id", ["videoId"])
+    .index("by_user_and_video", ["userId", "videoId"]),
 
   messages: defineTable({
     videoId: v.id("video"),
     userId: v.string(),
     content: v.string(),
-    role: v.union(v.literal("user"), v.literal("assistant"),v.literal("system"),v.literal("data")),
+    role: v.union(
+      v.literal("user"),
+      v.literal("assistant"),
+      v.literal("system"),
+      v.literal("data")
+    ),
     createdAt: v.number(),
   })
     .index("by_user_id", ["userId"])

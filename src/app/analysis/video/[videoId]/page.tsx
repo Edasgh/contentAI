@@ -11,9 +11,10 @@ import { useEffect, useState } from "react";
 import { Doc } from "../../../../../convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
 import { createOrGetVideo } from "@/actions/createOrGetVideo";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
+import AudienceAnalysis from "@/components/AudienceAnalysis";
 
-export default function VideoAnalysis(){
+export default function VideoAnalysis() {
   const params = useParams<{ videoId: string }>();
   const { videoId } = params;
   const [video, setVideo] = useState<Doc<"videos"> | null | undefined>(
@@ -81,6 +82,8 @@ export default function VideoAnalysis(){
           </div>
           {/* Youtube video details */}
           <YoutubeVideoDetails videoId={videoId} />
+          {/* Audience Analysis */}
+          <AudienceAnalysis videoId={videoId} />
           {/* Thumbnail Generation */}
           <ThumbnailGeneration videoId={videoId} />
           {/* Title Generation */}
@@ -98,5 +101,4 @@ export default function VideoAnalysis(){
       </div>
     </div>
   );
-};
-
+}

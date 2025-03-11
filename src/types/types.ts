@@ -8,6 +8,7 @@ export interface ChannelDetails{
 
 export interface VideoDetails{
     title:string;
+    description:string;
     views:string;
     likes:string;
     comments:string;

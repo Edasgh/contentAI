@@ -35,6 +35,7 @@ export async function getVideoDetails(videoId: string):Promise<VideoDetails | nu
     const video: VideoDetails = {
       // Video Info
       title: videoDetails.snippet?.title || "Unknown Title",
+      description:videoDetails.snippet?.description || "Unknown Description",
       thumbnail:
         videoDetails.snippet?.thumbnails?.maxres?.url ||
         videoDetails.snippet?.thumbnails?.high?.url ||
