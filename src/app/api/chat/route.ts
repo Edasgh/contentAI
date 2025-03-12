@@ -89,7 +89,7 @@ export async function POST(req: Request) {
       getVideoComments: tool({
         description: "Get the comments of a YouTube video",
         parameters: z.object({
-          videoId: z.string().describe("The video ID to get the details for"),
+          videoId: z.string().describe("The video ID to get the comments of"),
         }),
         execute: async ({ videoId }) => {
           const videoComments = await getVideoComments(videoId);
