@@ -12,6 +12,7 @@ import {
   GlassesIcon,
   ImageIcon,
   LetterText,
+  LetterTextIcon,
   PenIcon,
   Send,
 } from "lucide-react";
@@ -44,7 +45,12 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   const IsImgGenEnabled = useSchematicFlag(FeatureFlag.IMG_GENERATION);
   const IsTitleGenEnabled = useSchematicFlag(FeatureFlag.TITLE_GENERATIONS);
   const IsVideoAnalysisEnabled = useSchematicFlag(FeatureFlag.ANALYSE_VIDEO);
-  const IsAudienceAnalysisEnabled = useSchematicFlag(FeatureFlag.AUDIENCE_ANALYSIS);
+  const IsAudienceAnalysisEnabled = useSchematicFlag(
+    FeatureFlag.AUDIENCE_ANALYSIS
+  );
+  const IsVideoChapterGenEnabled = useSchematicFlag(
+    FeatureFlag.VIDEO_CHAPTERS
+  );
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -72,6 +78,18 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
 
     append(userMessage);
   }
+
+  async function generateChapters() {
+    const randomId = Math.random().toString(36).substring(2, 15);
+    const userMessage: Message = {
+      id: `generate-chapters-${randomId}`,
+      role: "user",
+      content: `Generate detailed video chapters for this video: ${videoId}.`,
+    };
+
+    append(userMessage);
+  }
+
   async function generateImage() {
     const randomId = Math.random().toString(36).substring(2, 15);
     const userMessage: Message = {
@@ -98,6 +116,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
     "generate-title-",
     "generate-thumbnail-",
     "generate-audience-analysis-",
+    "generate-chapters-",
   ];
 
   const displayMessages = messages.filter((message) => {
@@ -352,6 +371,24 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
               <span>Analyse Audience</span>
             ) : (
               <span>Upgrade to Analyse Audience</span>
+            )}
+          </button>
+          <button
+            type="button"
+            className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
+            disabled={
+              status === "streaming" ||
+              status === "submitted" ||
+              !IsVideoChapterGenEnabled
+            }
+            onClick={generateChapters}
+          >
+            <LetterTextIcon className="w-6 h-6" />
+
+            {IsVideoChapterGenEnabled ? (
+              <span>Generate Video Chapters</span>
+            ) : (
+              <span>Upgrade to generate Video Chapters</span>
             )}
           </button>
         </div>

@@ -9,6 +9,7 @@ import { getVideoIdFromUrl } from "@/lib/getVideoIdFromUrl";
 import generateTitle from "@/lib/tools/generateTitle";
 import { NextResponse } from "next/server";
 import { getVideoComments } from "@/actions/getVideoComments";
+import { generateVideoChapters } from "@/lib/tools/generateVideoChapters";
 
 const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
   If the user asks to generate a title, generate transcripts first and then summarize the transcripts and pass the summary to "generateTitle" tool to generate ONLY ONE title. 
   If the user asks to generate a thumbnail, generate only ONE Thumbnail.
   If the user asks about the video, generate transcripts first and then summarize the transcripts and send user the summary. 
-
+  If the user asks to generate video chapters, call the 'generateVideoChapters' tool passing the ${videoId} and send the time based chapters.
   If the user asks about the target audience and overall sentiment of the video, first, fetch the video details to determine the primary target audience and then, fetch the comments from the video and perform a sentiment analysis to assess the overall tone of audience reactions. Categorize the sentiment into positive, neutral, and negative percentages. Finally, provide a detailed, insightful breakdown of both the target audience analysis and the overall sentiment analysis of the video.
 
   Format for notion.`;
@@ -53,6 +54,7 @@ export async function POST(req: Request) {
     tools: {
       fetchTranscript: fetchTranscript,
       generateTitle: generateTitle,
+      generateVideoChapters:generateVideoChapters,
       generateThumbnail: generateImg(videoId, user?.id ?? ""),
       getVideoDetails: tool({
         description: "Get the details of a YouTube video",

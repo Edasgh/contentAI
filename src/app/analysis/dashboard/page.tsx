@@ -12,6 +12,7 @@ import {
 import {
   GlassesIcon,
   ImageIcon,
+  LetterTextIcon,
   NotebookTabs,
   NotepadTextDashedIcon,
   PlusIcon,
@@ -125,10 +126,12 @@ const UsageCard = ({
             <TextIcon className="text-cyan-600 dark:text-cyan-500" />
           ) : featureFlag === FeatureFlag.IMG_GENERATION ? (
             <ImageIcon className="text-red-400 dark:text-red-300" />
+          ) : featureFlag === FeatureFlag.AUDIENCE_ANALYSIS ? (
+            <GlassesIcon className="text-blue-500" />
           ) : featureFlag === FeatureFlag.SCRIPT_GENERATION ? (
             <NotebookTabs />
           ) : (
-            <GlassesIcon className="text-blue-500" />
+            <LetterTextIcon className="text-blue-500" />
           )}
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {featureUsage}{" "}
@@ -140,9 +143,11 @@ const UsageCard = ({
                   ? "Titles Generated"
                   : featureFlag === FeatureFlag.IMG_GENERATION
                     ? "Thumbnails Generated"
-                    : featureFlag === FeatureFlag.SCRIPT_GENERATION
-                      ? "Scripts Generated"
-                      : "Videos' Audience Analysed"}
+                    : featureFlag === FeatureFlag.AUDIENCE_ANALYSIS
+                      ? "Videos' Audience Analysed"
+                      : featureFlag === FeatureFlag.SCRIPT_GENERATION
+                        ? "Scripts Generated"
+                        : "Videos' Chapters Generated"}
           </p>
         </div>
       )}
@@ -209,6 +214,10 @@ const Dashboard = () => {
         <UsageCard
           featureFlag={FeatureFlag.AUDIENCE_ANALYSIS}
           title="Audience Analysis"
+        />
+        <UsageCard
+          featureFlag={FeatureFlag.VIDEO_CHAPTERS}
+          title="Video Chapters"
         />
         <UsageCard
           featureFlag={FeatureFlag.SCRIPT_GENERATION}

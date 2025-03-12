@@ -13,6 +13,7 @@ import { useUser } from "@clerk/nextjs";
 import { createOrGetVideo } from "@/actions/createOrGetVideo";
 import { toast } from "react-toastify";
 import AudienceAnalysis from "@/components/AudienceAnalysis";
+import VideoChapters from "@/components/VideoChapters";
 
 export default function VideoAnalysis() {
   const params = useParams<{ videoId: string }>();
@@ -90,6 +91,8 @@ export default function VideoAnalysis() {
           <TitleGeneration videoId={videoId} />
           {/* Transcription */}
           <Transcription videoId={videoId} />
+          {/* Video Chapters */}
+          <VideoChapters videoId={videoId}/>
         </div>
 
         {/* Right Side */}

@@ -14,7 +14,7 @@ const genAI = new GoogleGenerativeAI(apiKey!);
 const model = genAI.getGenerativeModel({
   model: "gemini-2.0-flash-001",
   systemInstruction:
-    "You are a helpful youtube video creator assistant that creates high quality SEO friendly concise video titles",
+    "You are a helpful youtube video creator assistant that creates high quality, SEO friendly, concise video titles",
 });
 
 const chat = model.startChat({});

@@ -5,6 +5,7 @@ export enum FeatureFlag {
   TITLE_GENERATIONS = "title-generations",
   SCRIPT_GENERATION = "script-generation",
   AUDIENCE_ANALYSIS = "audience-analysis",
+  VIDEO_CHAPTERS = "video-chapters",
 }
 
 export const featureFlagEvents: Record<FeatureFlag, { event: string }> = {
@@ -22,6 +23,9 @@ export const featureFlagEvents: Record<FeatureFlag, { event: string }> = {
   },
   [FeatureFlag.AUDIENCE_ANALYSIS]: {
     event: "analyse-audience",
+  },
+  [FeatureFlag.VIDEO_CHAPTERS]: {
+    event: "genrate-video-chapter",
   },
   [FeatureFlag.SCRIPT_GENERATION]: {
     event: "",

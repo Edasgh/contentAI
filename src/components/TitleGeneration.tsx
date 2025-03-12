@@ -49,8 +49,6 @@ const TitleGeneration = ({ videoId }: { videoId: string }) => {
         />
       </div>
 
-      {/* Simple horizontal scroll for images */}
-
       <div className="space-y-3 mt-4 max-h-[280px] overflow-y-auto">
         {" "}
         {titles?.map((title) => (

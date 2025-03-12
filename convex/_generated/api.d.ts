@@ -18,6 +18,7 @@ import type * as images from "../images.js";
 import type * as messages from "../messages.js";
 import type * as titles from "../titles.js";
 import type * as transcripts from "../transcripts.js";
+import type * as videoChapters from "../videoChapters.js";
 import type * as videos from "../videos.js";
 
 /**
@@ -34,6 +35,7 @@ declare const fullApi: ApiFromModules<{
   messages: typeof messages;
   titles: typeof titles;
   transcripts: typeof transcripts;
+  videoChapters: typeof videoChapters;
   videos: typeof videos;
 }>;
 export declare const api: FilterApi<

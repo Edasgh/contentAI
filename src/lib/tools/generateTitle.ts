@@ -19,10 +19,10 @@ const generateTitle = tool({
         const title = await titleGeneration(videoId,videoSummary,considerations);
         return {title};
       } catch (error) {
-        console.error("Error fetching transcript:", error);
+        console.error("Error fetching title:", error);
         return {
           error:
-            "Failed to fetch the transcript. Please check the video ID and try again.",
+            "Failed to fetch the title. Please check the video ID and try again.",
         };
       }
     },

@@ -51,7 +51,7 @@ export async function getYtTranscript(videoId: string) {
   //   throw new Error("User not found!");
   // }
 
-  // TODO :  Check if transcript already exists in db [iF IT'S cached]
+  // Check if transcript already exists in db [iF IT'S cached]
   const existingTranscript = await convex.query(
     api.transcripts.getTranscriptByVideoId,
     { videoId, userId: user?.id??"" }

@@ -27,7 +27,7 @@ export const dalleImageGeneration = async (prompt: string, videoId: string) => {
 
   console.log("🎨 Generating image with prompt:", prompt);
 
-  const width = 1972;
+  const width = 1792;
   const height = 1024;
   // Each seed generates a new image variation
   const model = "flux"; // Using 'flux' as  model
