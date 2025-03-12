@@ -106,11 +106,11 @@ export async function getVideoChapters(videoId: string) {
 
   // If not fetch from gemini
   try {
-    console.log("Getting the transcript...");
+    // console.log("Getting the transcript...");
     const { transcript } = await getYtTranscript(videoId);
-    console.log("Generating chunks...");
+    // console.log("Generating chunks...");
     const chunks: ChunksEntry[] = chunkTranscript(transcript);
-    console.log("Generating chapters...");
+    // console.log("Generating chapters...");
     const chapters = await generateChapters(chunks);
 
     // Store chapters in database

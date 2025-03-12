@@ -304,10 +304,10 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
             )}
           </Button>
         </form>
-        <div className="flex flex-wrap gap-2 mt-2.5">
+        <div className="mt-2 flex flex-wrap gap-2">
           <button
             type="button"
-            className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
+            className="inline-flex bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0  shadow  rounded-2xl cursor-pointer h-9 px-4 py-2 flex-shrink-0 text-xs text-dark-600 hover:text-dark-800 disabled:cursor-not-allowed disabled:text-dark-300 dark:text-light-400 dark:hover:text-light-200 dark:disabled:text-light-600"
             disabled={
               status === "streaming" ||
               status === "submitted" ||
@@ -324,7 +324,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
           </button>
           <button
             type="button"
-            className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
+            className="inline-flex bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0  shadow   rounded-2xl cursor-pointer h-9 px-4 py-2 flex-shrink-0 text-xs text-dark-600 hover:text-dark-800 disabled:cursor-not-allowed disabled:text-dark-300 dark:text-light-400 dark:hover:text-light-200 dark:disabled:text-light-600"
             disabled={
               status === "streaming" ||
               status === "submitted" ||
@@ -341,7 +341,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
           </button>
           <button
             type="button"
-            className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
+            className="inline-flex bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0  shadow   rounded-2xl cursor-pointer h-9 px-4 py-2 flex-shrink-0 text-xs text-dark-600 hover:text-dark-800 disabled:cursor-not-allowed disabled:text-dark-300 dark:text-light-400 dark:hover:text-light-200 dark:disabled:text-light-600"
             disabled={
               status === "streaming" ||
               status === "submitted" ||
@@ -358,7 +358,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
           </button>
           <button
             type="button"
-            className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
+            className="inline-flex bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0  shadow   rounded-2xl cursor-pointer h-9 px-4 py-2 flex-shrink-0 text-xs text-dark-600 hover:text-dark-800 disabled:cursor-not-allowed disabled:text-dark-300 dark:text-light-400 dark:hover:text-light-200 dark:disabled:text-light-600"
             disabled={
               status === "streaming" ||
               status === "submitted" ||
@@ -375,7 +375,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
           </button>
           <button
             type="button"
-            className="text-xs xl:text-sm w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed "
+            className="inline-flex bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0  shadow   rounded-2xl h-9 px-4 py-2 flex-shrink-0 text-xs text-dark-600 hover:text-dark-800 cursor-pointer disabled:cursor-not-allowed disabled:text-dark-300 dark:text-light-400 dark:hover:text-light-200 dark:disabled:text-light-600"
             disabled={
               status === "streaming" ||
               status === "submitted" ||

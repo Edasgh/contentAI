@@ -4,8 +4,6 @@ import { currentUser } from "@clerk/nextjs/server";
 import { google } from "googleapis";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../convex/_generated/api";
-import { client } from "@/lib/schematic";
-import { FeatureFlag, featureFlagEvents } from "@/features/flags";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -62,16 +60,6 @@ export async function getVideoComments(
       videoId,
       userId: user?.id ?? "",
       comments: commentsArr,
-    });
-
-    await client.track({
-      event: featureFlagEvents[FeatureFlag.AUDIENCE_ANALYSIS].event,
-      company: {
-        id: user?.id ?? "",
-      },
-      user: {
-        id: user?.id ?? "",
-      },
     });
 
     return {
