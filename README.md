@@ -15,6 +15,7 @@ Agentube is an AI-powered platform that helps content creators analyze, transcri
 - **AI Script Generator**: Generate engaging scripts for YouTube videos. (Coming Soon!)
 - **Thumbnail Creator**: Automatically create high-quality thumbnails.
 - **Engagement Metrics**: Track views, likes, comments, and retention.
+- **Video Chapters Generator**: Generate timestamped video chapters for ease of Audience Experience.
 
 ## How It Works
 
