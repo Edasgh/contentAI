@@ -3,6 +3,7 @@ import { z } from "zod";
 import { client } from "../schematic";
 import { FeatureFlag } from "@/features/flags";
 import { ImgGeneration } from "@/actions/ImgGeneration";
+import { dalleImageGeneration } from "@/actions/ImgGenerationWithFlux";
 
 export const generateImg = (videoId: string, userId: string) =>
   tool({
@@ -32,6 +33,7 @@ export const generateImg = (videoId: string, userId: string) =>
         };
       }
 
+      // const image = await dalleImageGeneration(prompt, videoId);
       const image = await ImgGeneration(prompt, videoId);
       return { image };
     },

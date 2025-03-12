@@ -34,7 +34,7 @@ export const dalleImageGeneration = async (prompt: string, videoId: string) => {
 
   const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${width}&height=${height}&seed=${randomSeed}&model=${model}`;
 
-  console.log(imageUrl);
+  // console.log(imageUrl);
 
   if (!imageUrl) {
     throw new Error("Failed to generate image");
