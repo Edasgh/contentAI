@@ -1,12 +1,12 @@
-# AI Content Agent - Agentube
+# AI Content Agent - ContentAI
 
-## Live Link
+[LIVE DEMO](https://contentai-edasgh.vercel.app/)
 
-https://agentube-edasgh.vercel.app/
+
 
 ## Overview
 
-Agentube is an AI-powered platform that helps content creators analyze, transcribe, and optimize their YouTube videos. The tool leverages artificial intelligence to provide deep insights, auto-generate video scripts, create engaging thumbnails, and more.
+ContentAI is an AI-powered platform that helps content creators analyze, transcribe, and optimize their YouTube videos. The tool leverages artificial intelligence to provide deep insights, auto-generate video scripts, create engaging thumbnails, and more.
 
 ## Features
 
@@ -36,7 +36,7 @@ Agentube is an AI-powered platform that helps content creators analyze, transcri
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/Edasgh/agentube.git
+   git clone https://github.com/Edasgh/contentAI.git
    cd ai-content-agent
    ```
 2. Install dependencies:
