@@ -38,6 +38,7 @@ export async function POST(req: Request) {
   If any tool is used, analyse the response and if it contains a cache, explain that the transcript or the video chapters is cached because they previously transcribed the video saving the user a token - use words like database instead of cache to make it more easy to understand.  
   If the user asks to generate a thumbnail, generate only ONE Thumbnail.
   If the user asks about the video, generate video summary and answer according to the summary. 
+  If the user asks to generate a shooting script, generate video summary and answer according to the summary that how they can shoot the video step by step.
   
   Format for notion.`;
 
