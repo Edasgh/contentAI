@@ -38,28 +38,10 @@ export default function AudienceAnalysis({ videoId }: { videoId: string }) {
           title="Audience Analysis"
         />
       </div>
-      <div className="space-y-3 mt-4 max-h-[280px] overflow-y-auto">
-        {" "}
-        {analyses?.map((an) => (
-          <div
-            key={an._id}
-            className="group relative p-4 rounded-lg border border-gray-100 dark:border-gray-500 bg-gray-50 dark:bg-gray-700 hover:border-blue-100 hover:bg-blue-50 transition-all duration-200"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed">
-                {" "}
-                {an.analysis}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
 
       {/* No analysis generated yet */}
       {!analyses && !isAudienceAnalysisEnabled && (
-        <div className="text-center py-8 px-4 rounded-lg mt-4 border-2 border-dashed border-gray-200">
-          <p className="text-gray-500">No Analysis available</p>{" "}
-        </div>
+        <p className="text-gray-500">No Analysis available</p>
       )}
     </div>
   );

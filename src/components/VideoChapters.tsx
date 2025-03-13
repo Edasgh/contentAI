@@ -48,9 +48,9 @@ export default function VideoChapters({ videoId }: { videoId: string }) {
         {" "}
         {chapters &&
           chapters?.chapter?.map((ch, index) => (
-            <div key={index} className="relative p-2 rounded-lg">
+            <div key={index} className="relative p-1">
               <div className="flex items-center justify-start gap-5">
-                <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed">
+                <p className="text-sm text-gray-400 leading-relaxed">
                   {" "}
                   {ch.time}
                 </p>

@@ -120,7 +120,7 @@ export default function Home() {
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-500 mb-8 max-w-5xl mx-auto">
               Transform your content with AI powered analysis, transcription and
-              insights. Get started in seconds.
+              more. Get started in seconds.
             </p>
             <SignedIn>
               <Link
@@ -185,7 +185,7 @@ export default function Home() {
             {steps.map((step, index) => (
               <div
                 key={index}
-                className="text-center p-6 rounded-xl bg-white dark:bg-gray-700 shadow-md hover:shadow-lg dark:hover:shadow-gray-950 transition-all"
+                className="text-center p-6 rounded-xl bg-white dark:bg-gray-700 shadow-md hover:shadow-lg dark:shadow-gray-900 transition-all"
               >
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   <step.icon className={`w-8 h-8 text-white`} />
