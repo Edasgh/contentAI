@@ -9,12 +9,12 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
   const [video, setVideo] = useState<VideoDetails>();
   const [isError, setIsError] = useState(false);
 
-//   console.log(videoId);
+  //   console.log(videoId);
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
       const videoDetails = await getVideoDetails(videoId);
-    //   console.log("video details",videoDetails);
+      //   console.log("video details",videoDetails);
       if (!videoDetails) {
         console.log("video not found!");
         setIsError(true);
@@ -22,17 +22,16 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
       }
       setVideo(videoDetails);
     };
-    if(videoId)
-    {
-        fetchVideoDetails();
+    if (videoId) {
+      fetchVideoDetails();
     }
   }, [videoId]);
 
   if (isError || !videoId) {
     return (
-        <div className="flex justify-center items-center p-4">
-            <div className="w-8 h-8 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"/>
-        </div>
+      <div className="flex justify-center items-center p-4">
+        <div className="w-8 h-8 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+      </div>
     );
   }
 
@@ -58,9 +57,7 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                 {video.title}
               </h1>{" "}
             </div>
-
             {/* Channel info */}
-
             <div className="flex items-center gap-4">
               <Image
                 src={video.channel.thumbnail}
@@ -78,9 +75,7 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                 </p>
               </div>
             </div>
-
             {/* Video stats */}
-
             <div className="grid grid-cols-2 @lg:grid-cols-4 gap-4 pt-4">
               {/* Publish Date */}
               <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-900">
@@ -95,7 +90,6 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                 </p>
               </div>
               {/* Video views */}
-
               <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-900">
                 <div className="flex items-center gap-2 mb-1">
                   <Eye className="w-4 h-4 text-gray-600 dark:text-gray-50" />
@@ -108,7 +102,6 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                 </p>
               </div>
               {/* Video Likes */}
-
               <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-900">
                 <div className="flex items-center gap-2 mb-1">
                   <ThumbsUp className="w-4 h-4 text-gray-600 dark:text-gray-50" />
@@ -120,9 +113,7 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                   {video.likes}
                 </p>
               </div>
-
               {/* Video comments */}
-
               <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-3 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-900">
                 <div className="flex items-center gap-2 mb-1">
                   <MessageCircle className="w-4 h-4 text-gray-600 dark:text-gray-50" />

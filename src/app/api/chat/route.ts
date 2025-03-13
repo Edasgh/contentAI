@@ -37,7 +37,7 @@ export async function POST(req: Request) {
   If an error occurs, explain it to the user and ask them to try again later. If the error suggest the user upgrade, explain that they must upgrade to use this feature, tell them to go to 'Manage Plan' in the header and upgrade. 
   If any tool is used, analyse the response and if it contains a cache, explain that the transcript or the video chapters is cached because they previously transcribed the video saving the user a token - use words like database instead of cache to make it more easy to understand.  
   If the user asks to generate a thumbnail, generate only ONE Thumbnail.
-  If the user asks about the video, generate video summary and send user the summary. 
+  If the user asks about the video, generate video summary and answer according to the summary. 
   
   Format for notion.`;
 
