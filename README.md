@@ -13,6 +13,7 @@ ContentAI is an AI-powered platform that helps content creators analyze, transcr
 - **AI Analysis**: Gain insights into viewer engagement and content quality.
 - **Auto Transcription**: Convert YouTube videos into accurate transcripts.
 - **AI Script Generator**: Generate engaging scripts for YouTube videos. (Coming Soon!)
+- **AI Title Generator**: Generate catchy, SEO friendly titles for YouTube videos.
 - **Thumbnail Creator**: Automatically create high-quality thumbnails.
 - **Engagement Metrics**: Track views, likes, comments, and retention.
 - **Video Chapters Generator**: Generate timestamped video chapters for ease of Audience Experience.
@@ -37,7 +38,7 @@ ContentAI is an AI-powered platform that helps content creators analyze, transcr
 1. Clone the repository:
    ```sh
    git clone https://github.com/Edasgh/contentAI.git
-   cd ai-content-agent
+   cd contentAI
    ```
 2. Install dependencies:
    ```sh
