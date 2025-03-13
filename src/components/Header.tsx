@@ -52,7 +52,7 @@ const Header = () => {
             <Link href="/" className="flex items-center gap-4">
               <Agentpulse size="small" />
               <h1 className="text-xl font-semibold bg-gradient-to-r from-blue-600 dark:from-blue-400 to-blue-400 dark:to-blue-100 bg-clip-text text-transparent">
-                Agentube
+                ContentAI
               </h1>
             </Link>
           </div>
