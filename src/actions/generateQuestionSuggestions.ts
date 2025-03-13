@@ -15,11 +15,16 @@ const model = genAI.getGenerativeModel({
 const chat = model.startChat({});
 
 
+function removeOrderedPattern(arr:string[]) {
+   return arr.map((text) => text.replace(/^\s*([0-9]+\.|[a-zA-Z]\.)\s*/, ""));
+}
+
+
 export async function generateQuestionSuggestions(videoId:string){
 
    try {
      //getting the video summary
-     const {summary:videoSummary} = await generateVideoSummary(videoId);
+     const { summary: videoSummary } = await generateVideoSummary(videoId);
      if (!videoSummary) {
        return {
          error: "Failed to generate questions (system error) ",
@@ -49,8 +54,10 @@ export async function generateQuestionSuggestions(videoId:string){
          error: "Failed to generate questions (system error) ",
        };
      }
-
-     const generatedQs = (questions.split("\n")).filter((e)=>e!=="");
+  
+     const generatedQs = removeOrderedPattern(
+       questions.split("\n").filter((e) => e.trim() !== "")
+     );
 
      return {
        questions: generatedQs,
