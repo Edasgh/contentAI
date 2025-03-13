@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Agentube",
+  title: "Content AI",
   description:
     "AI-powered Assistant that helps content creators analyze, transcribe, and optimize their YouTube videos. The tool leverages artificial intelligence to provide deep insights, auto-generate video scripts, create engaging thumbnails, and more.",
 };
