@@ -3,86 +3,41 @@ import Agentpulse from "@/components/Agentpulse";
 import { Button } from "@/components/ui/button";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import {
-  Activity,
   ArrowRight,
   BarChart,
-  Brain,
-  ChartBar,
   CheckCircle,
-  File,
-  ImageDownIcon,
-  PenBoxIcon,
-  Share,
   Video,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const features = [
   {
-    title: "AI Analysis",
-    description:
-      "Get deep insights into your video content with our advanced AI Analysis. Understand viewer engagement and content quality.",
-    icon: Brain,
-    iconBg: "bg-blue-100",
-    iconColor: "text-blue-600",
+    title: "Transcript Generation for any YouTube Video",
+    image: "transcript.png",
   },
   {
-    title: "Auto Transcription",
-    description:
-      "Convert YouTube videos into accurate, time-stamped transcripts with AI-powered speech-to-text processing.",
-    icon: File,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-600",
+    title: "Ask Anything About Video",
+    image: "analysis.png",
   },
   {
-    title: "AI Script Generator",
-    description:
-      "Generate engaging video scripts based on trending topics and your niche, optimized for YouTube audience retention.",
-    icon: PenBoxIcon,
-    iconBg: "bg-yellow-100",
-    iconColor: "text-yellow-600",
+    title: "AI Powered Video Chapters",
+    image: "chapters.png",
   },
   {
-    title: "Thumbnail Creator",
-    description:
-      "Create high-quality, eye-catching thumbnails automatically, designed for maximum click-through rates.",
-    icon: ImageDownIcon,
-    iconBg: "bg-red-100",
-    iconColor: "text-red-600",
+    title: "Generate Customized Video Scripts",
+    image: "shooting_script.png",
   },
   {
-    title: "Competitor Insights",
-    description:
-      "Analyze your competitors' videos and gain actionable insights to improve your content strategy.",
-    icon: ChartBar,
-    iconBg: "bg-orange-100",
-    iconColor: "text-orange-600",
+    title: "Generate High-quality, Click Worthy Thumbnails & Titles",
+    image: "thumbnail.png",
   },
   {
-    title: "Trend Prediction",
-    description:
-      "Identify trending topics and content ideas before they go viral, helping you stay ahead of the competition.",
-    icon: BarChart,
-    iconBg: "bg-indigo-100",
-    iconColor: "text-indigo-600",
-  },
-  {
-    title: "Engagement Metrics",
-    description:
-      "Track and analyze views, likes, comments, and audience retention to refine your content strategy.",
-    icon: Activity,
-    iconBg: "bg-teal-100",
-    iconColor: "text-teal-600",
-  },
-  {
-    title: "Social Media Content Repurposing",
-    description:
-      "Automatically generate short clips and captions for platforms like TikTok, Instagram, and Twitter.",
-    icon: Share,
-    iconBg: "bg-gray-100",
-    iconColor: "text-gray-600",
+    title: "Audience Analysis of Any YouTube Video",
+    image: "audience.png",
   },
 ];
+
 
 const steps = [
   {
@@ -99,7 +54,7 @@ const steps = [
   {
     title: "3. Receive Your Ready-to-Use Content",
     description:
-      "Download the transcript, script, and AI-generated thumbnail, all optimized for better performance.",
+      "Copy the script, Download the AI-generated thumbnail, all optimized for better performance.",
     icon: CheckCircle,
   },
 ];
@@ -149,7 +104,7 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-20 px-4 bg-white dark:bg-gray-900/95">
         <div className="mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-4xl font-bold text-center mb-12">
             Powerful features for Content Creators
           </h2>
 
@@ -158,17 +113,20 @@ export default function Home() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-blue-500   dark:hover:border-blue-300  transition-all duration-300"
+                className="bg-gradient-to-tl from-blue-200 dark:from-blue-700 via-gray-200 dark:via-gray-800 to-blue-500 dark:to-blue-950 group p-6 py-10 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-blue-500   dark:hover:border-blue-300 hover:bg-gradient-to-l transition-all duration-1000 flex flex-col h-[420px] relative overflow-hidden"
               >
-                <div
-                  className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${feature.iconBg}`}
-                >
-                  <feature.icon className={`w-6 h-6 ${feature.iconColor}`} />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600 dark:text-gray-500">
-                  {feature.description}
-                </p>
+                <Link href={"/analysis"}>
+                  <Image
+                    src={`/images/${feature.image}`}
+                    width={360}
+                    height={270}
+                    alt={`${feature.title}`}
+                    className="object-contain rounded-lg opacity-90 shadow-blue-900 shadow-xs transition-all duration-300 group-hover:scale-105 group-hover:opacity-100"
+                  />
+                </Link>
+                <h3 className="text-xl text-black dark:text-white font-semibold mt-4">
+                  {feature.title}
+                </h3>
               </div>
             ))}
           </div>
