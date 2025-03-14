@@ -12,6 +12,7 @@ import { getVideoComments } from "@/actions/getVideoComments";
 import { generateVideoChapters } from "@/lib/tools/generateVideoChapters";
 import { getAudienceAnalysis } from "@/lib/tools/getAudienceAnalysis";
 import { generateVideoSummary } from "@/actions/titleGeneration";
+import { generateShootingScript } from "@/actions/generateShootingScript";
 
 const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
@@ -38,7 +39,6 @@ export async function POST(req: Request) {
   If any tool is used, analyse the response and if it contains a cache, explain that the transcript or the video chapters is cached because they previously transcribed the video saving the user a token - use words like database instead of cache to make it more easy to understand.  
   If the user asks to generate a thumbnail, generate only ONE Thumbnail.
   If the user asks any question, generate video summary and answer according to the summary only. 
-  If the user asks to generate a shooting script, generate video summary and answer according to the summary that how they can shoot the video step by step.
   
   Format for notion.`;
 
@@ -67,6 +67,25 @@ export async function POST(req: Request) {
       }),
       getAudienceAnalysis: getAudienceAnalysis,
       generateThumbnail: generateImg(videoId, user?.id ?? ""),
+      generateShootingScript: tool({
+        description: "Get the shooting script for a video similar to this",
+        parameters: z.object({
+          videoId: z.string().describe("The video ID to get shooting script for"),
+        }),
+        execute: async ({ videoId }) => {
+          try {
+            const {shooting_script} = await generateShootingScript(videoId);
+            return { shooting_script };
+          } catch (error) {
+            console.log("Error fetching shooting script",error);
+            return {
+              shooting_script: "",
+              error:
+                "Failed to fetch the shooting script. Please check the video ID and try again.",
+            };
+          }
+        },
+      }),
       getVideoDetails: tool({
         description: "Get the details of a YouTube video",
         parameters: z.object({

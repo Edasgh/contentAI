@@ -33,7 +33,7 @@ export interface ChaptersEntry {
 //generate chunks of transcript
 function chunkTranscript(
   transcript: TranscriptEntry[],
-  maxWords = 250
+  maxWords = 200
 ): ChunksEntry[] {
   let chunks: ChunksEntry[] = [];
   let tempText = "";
