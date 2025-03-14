@@ -314,8 +314,13 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
               questions.map((w, index) => (
                 <button
                   type="button"
-                  className="flex-shrink-0 px-4 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 rounded-md cursor-pointer text-sm text-gray-700 dark:text-gray-50 transition-colors font-cal max-w-sm dark:border dark:border-gray-500"
+                  className="flex-shrink-0 px-4 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 rounded-md cursor-pointer text-sm text-gray-700 dark:text-gray-50 transition-colors font-cal max-w-sm dark:border dark:border-gray-500 disabled:cursor-not-allowed"
                   key={index}
+                  disabled={
+                    status === "streaming" ||
+                    status === "submitted" ||
+                    !IsVideoAnalysisEnabled
+                  }
                   onClick={() => {
                     const randomId = Math.random()
                       .toString(36)
