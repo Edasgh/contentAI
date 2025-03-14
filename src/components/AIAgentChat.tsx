@@ -8,6 +8,8 @@ import { useSchematicFlag } from "@schematichq/schematic-react";
 import { FeatureFlag } from "@/features/flags";
 import {
   BotIcon,
+  ChevronDown,
+  ChevronUpIcon,
   Copy,
   GlassesIcon,
   ImageIcon,
@@ -38,6 +40,7 @@ function formatToolCall(part: ToolPart) {
 const AIAgentChat = ({ videoId }: { videoId: string }) => {
 
   const [questions,setQuestions] = useState<String[]>([]);
+  const [open,setOpen] = useState(true);
 
   const { messages, input, handleInputChange, handleSubmit, append, status } =
     useChat({
@@ -287,39 +290,59 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
 
       {/* Input Form */}
       <div className="border-t border-gray-100 dark:border-gray-600 p-4 bg-white dark:bg-gray-700 rounded-md">
-        <div className="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
-          {questions &&
-            questions.length !== 0 &&
-            questions.map((w, index) => (
-              <button
-                type="button"
-                className="flex-shrink-0 px-4 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 rounded-md cursor-pointer text-sm text-gray-700 dark:text-gray-50 transition-colors font-cal max-w-sm dark:border dark:border-gray-500"
-                key={index}
-                onClick={()=>{
+        {open ? (
+          <ChevronDown
+            className="cursor-pointer mb-1.5"
+            onClick={() => {
+              setOpen(!open);
+            }}
+            suppressHydrationWarning
+          />
+        ) : (
+          <ChevronUpIcon
+            className="cursor-pointer mb-1.5"
+            onClick={() => {
+              setOpen(!open);
+            }}
+            suppressHydrationWarning
+          />
+        )}
+        {open && (
+          <div className="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+            {questions &&
+              questions.length !== 0 &&
+              questions.map((w, index) => (
+                <button
+                  type="button"
+                  className="flex-shrink-0 px-4 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 rounded-md cursor-pointer text-sm text-gray-700 dark:text-gray-50 transition-colors font-cal max-w-sm dark:border dark:border-gray-500"
+                  key={index}
+                  onClick={() => {
                     const randomId = Math.random()
                       .toString(36)
                       .substring(2, 15);
-                  append({
-                    id: `ask-agent-${randomId}`,
-                    role: "user",
-                    content: `${w}`,
-                  });
-                }}
-              >
-                {w}
-              </button>
-            ))}
-          {!questions || questions.length==0 &&
-            ["","","",""].map((w, index) => (
-              <button
-                type="button"
-                className="flex-shrink-0 px-4 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-600/50 rounded-md cursor-pointer text-sm text-gray-700 dark:text-gray-50 transition-colors font-cal w-[13rem] h-[3rem] animate-pulse"
-                key={index}
-              >
-                {w}
-              </button>
-            ))}
-        </div>
+                    append({
+                      id: `ask-agent-${randomId}`,
+                      role: "user",
+                      content: `${w}`,
+                    });
+                  }}
+                >
+                  {w}
+                </button>
+              ))}
+            {!questions ||
+              (questions.length == 0 &&
+                ["", "", "", ""].map((w, index) => (
+                  <button
+                    type="button"
+                    className="flex-shrink-0 px-4 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-600/50 rounded-md cursor-pointer text-sm text-gray-700 dark:text-gray-50 transition-colors font-cal w-[13rem] h-[3rem] animate-pulse"
+                    key={index}
+                  >
+                    {w}
+                  </button>
+                )))}
+          </div>
+        )}
         <form
           onSubmit={handleSubmit}
           className="flex gap-2"

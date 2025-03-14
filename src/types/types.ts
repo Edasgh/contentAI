@@ -23,4 +23,5 @@ export interface Video {
   _creationTime: number;
   videoId: string;
   userId: string;
+  title:string;
 }

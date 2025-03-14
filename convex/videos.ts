@@ -35,11 +35,13 @@ export const createVideoEntry = mutation({
   args: {
     videoId: v.string(),
     userId: v.string(),
+    title:v.string()
   },
   handler: async (ctx, args) => {
     const videoId = await ctx.db.insert("videos", {
       videoId: args.videoId,
       userId: args.userId,
+      title:args.title
     });
     return videoId;
   },

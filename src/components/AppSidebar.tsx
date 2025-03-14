@@ -19,10 +19,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "./ui/sidebar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Id } from "../../convex/_generated/dataModel";
-import { VideoDetails } from "@/types/types";
-import { getVideoDetails } from "@/actions/getVideoDetails";
 import { useParams } from "next/navigation";
 import { useAppSelector } from "@/lib/store/hooks";
 import Link from "next/link";
@@ -32,74 +30,20 @@ interface Video {
   _creationTime: number;
   videoId: string;
   userId: string;
+  title:string;
 }
 
 const SearchHistory = ({
+  video,
   videoId,
   open,
 }: {
-  videoId: string;
+  video: Video;
+  videoId:string;
   open: boolean;
 }) => {
-  const [video, setVideo] = useState<VideoDetails>();
-  const [isError, setIsError] = useState(false);
-
   const params = useParams<{ videoId: string }>();
   const { videoId: paramVideoId } = params;
-
-  useEffect(() => {
-    const fetchVideoDetails = async () => {
-      const videoDetails = await getVideoDetails(videoId);
-      //   console.log("video details",videoDetails);
-      if (!videoDetails) {
-        console.log("video not found!");
-        setIsError(true);
-        return;
-      }
-      setVideo(videoDetails);
-    };
-    if (videoId) {
-      fetchVideoDetails();
-    }
-  }, [videoId]);
-
-  if (open && (isError || !videoId)) {
-    return (
-      <SidebarMenuItem
-        className="ml-3.5 border-r p-0.5 bg-gray-100 hover:bg-blue-100 dark:bg-gray-900 border-blue-500 dark:border-blue-300 dark:hover:bg-gray-700"
-        suppressHydrationWarning
-      >
-        <SidebarMenuButton
-          className="hover:bg-inherit break-words h-fit"
-          suppressHydrationWarning
-          asChild
-        >
-          <Link
-            className="text-red-700 dark:text-red-300"
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/analysis/video/${videoId}`}
-            suppressHydrationWarning
-          >
-            <span className="line-clamp-2" suppressHydrationWarning>
-              <div
-                className="text-inherit flex gap-2 justify-center items-center"
-                suppressHydrationWarning
-              >
-                <span
-                  className="w-2 h-2 bg-red-400 rounded-full animate-pulse"
-                  suppressHydrationWarning
-                />
-                <p
-                  className="text-inherit animate-pulse"
-                  suppressHydrationWarning
-                >{`Video : ${videoId}`}</p>
-              </div>
-            </span>
-          </Link>
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-    );
-  }
-
   return (
     <>
       {open && (
@@ -258,6 +202,7 @@ export function AppSidebar() {
                   open={open}
                   key={item._id}
                   videoId={item.videoId}
+                  video={item}
                 />
               ))}
             </SidebarMenu>

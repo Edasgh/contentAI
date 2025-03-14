@@ -7,6 +7,7 @@ import { FeatureFlag, featureFlagEvents } from "@/features/flags";
 import { checkFeatureUsageLimit } from "@/lib/checkFeatureUsageLimit";
 import { api } from "../../convex/_generated/api";
 import { client } from "@/lib/schematic";
+import { getVideoDetails } from "./getVideoDetails";
 
 export interface VideoResponse {
   success: boolean;
@@ -45,13 +46,27 @@ export async function createOrGetVideo(
       userId,
     });
 
+    // if video doesn't already exist
+    //create a new video document
     if (!video) {
+
+      const videoDetails = await getVideoDetails(videoId);
+
+      if(!videoDetails)
+      {
+        return {
+          success: false,
+          error: "An unexpected error occurred. Please try again later.",
+        };
+      }
+
       // Analyse event
       console.log(` Analyse event for video ${videoId} - Token will be spent`);
 
       const newVideoId = await convex.mutation(api.videos.createVideoEntry, {
         videoId,
         userId,
+        title:videoDetails.title
       });
 
       const newVideo = await convex.query(api.videos.getVideoById, {
