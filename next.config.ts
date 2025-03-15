@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
         hostname: "tangible-goose-758.convex.cloud",
         protocol: "https",
       },
+      {
+        hostname: "yemca-services.net",
+        protocol: "https",
+      },
     ],
   },
 };
