@@ -16,6 +16,8 @@ import {
   LetterText,
   LetterTextIcon,
   PenIcon,
+  PenLineIcon,
+  PenToolIcon,
   Send,
 } from "lucide-react";
 import { toast } from "react-toastify";
@@ -74,6 +76,16 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
 
     append(userMessage);
   }
+  async function generateBlogPost() {
+    const randomId = Math.random().toString(36).substring(2, 15);
+    const userMessage: Message = {
+      id: `generate-blog-${randomId}`,
+      role: "user",
+      content: `Generate a comprehensive, SEO-optimized blog post based on the YouTube video : ${videoId}`,
+    };
+
+    append(userMessage);
+  }
 
   async function generateTitle() {
     const randomId = Math.random().toString(36).substring(2, 15);
@@ -124,6 +136,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
     "generate-thumbnail-",
     "generate-audience-analysis-",
     "generate-chapters-",
+    "generate-blog-",
   ];
 
   const displayMessages = messages.filter((message) => {
@@ -474,6 +487,23 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
               <span>Generate Video Chapters</span>
             ) : (
               <span>Upgrade to generate Video Chapters</span>
+            )}
+          </button>
+          <button
+            type="button"
+            className="inline-flex bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0  shadow  rounded-2xl cursor-pointer h-9 px-4 py-2 flex-shrink-0 text-xs text-dark-600 hover:text-dark-800 disabled:cursor-not-allowed disabled:text-dark-300 dark:text-light-400 dark:hover:text-light-200 dark:disabled:text-light-600"
+            disabled={
+              status === "streaming" ||
+              status === "submitted" ||
+              !IsVideoAnalysisEnabled
+            }
+            onClick={generateBlogPost}
+          >
+            <PenToolIcon className="w-4 h-4" />
+            {IsVideoAnalysisEnabled ? (
+              <span>Generate Blog Post</span>
+            ) : (
+              <span>Upgrade to Generate a Blog Post</span>
             )}
           </button>
         </div>

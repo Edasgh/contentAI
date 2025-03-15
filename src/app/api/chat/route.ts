@@ -13,6 +13,7 @@ import { generateVideoChapters } from "@/lib/tools/generateVideoChapters";
 import { getAudienceAnalysis } from "@/lib/tools/getAudienceAnalysis";
 import { generateVideoSummary } from "@/actions/titleGeneration";
 import { generateShootingScript } from "@/actions/generateShootingScript";
+import { generateBlog } from "@/lib/tools/generateBlog";
 
 const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
@@ -39,6 +40,7 @@ export async function POST(req: Request) {
   If any tool is used, analyse the response and if it contains a cache, explain that the transcript or the video chapters is cached because they previously transcribed the video saving the user a token - use words like database instead of cache to make it more easy to understand.  
   If the user asks to generate a thumbnail, generate only ONE Thumbnail.
   If the user asks any question, generate video summary and answer according to the summary only. 
+  If the user asks to generate a blog post, generate the blog post and send the user and THEN suggest them to generate a thumbnail to use as the cover image of the blog post.
   
   Format for notion.`;
 
@@ -116,6 +118,7 @@ export async function POST(req: Request) {
           return { videoComments };
         },
       }),
+      generateBlogPost:generateBlog
     },
   });
 

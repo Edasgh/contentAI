@@ -1,6 +1,8 @@
 "use client";
+import AllMyBlogs from "@/components/AllMyBlogs";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import VideoTile from "@/components/VideoTile";
 import { FeatureFlag } from "@/features/flags";
 import { useAppSelector } from "@/lib/store/hooks";
@@ -19,8 +21,9 @@ import {
   TextIcon,
   VideoIcon,
 } from "lucide-react";
+
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const UsageCard = ({
   featureFlag,
@@ -181,6 +184,29 @@ const UsageCard = ({
   );
 };
 
+const TabComponent = ({
+  searchesComp,
+  blogsComp,
+}: {
+  searchesComp: React.ReactNode;
+  blogsComp: React.ReactNode;
+}) => {
+  return (
+    <Tabs defaultValue="recent_searches" className="w-full md:w-2/3">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger className="cursor-pointer" value="recent_searches">
+          Recent Searches
+        </TabsTrigger>
+        <TabsTrigger className="cursor-pointer" value="my_blogs">
+          My Blogs
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="recent_searches">{searchesComp}</TabsContent>
+      <TabsContent value="my_blogs">{blogsComp}</TabsContent>
+    </Tabs>
+  );
+};
+
 const Dashboard = () => {
   const videos = useAppSelector((state) => state?.SearchHistory?.videos);
 
@@ -224,12 +250,9 @@ const Dashboard = () => {
           title="Script Generation"
         />
       </div>
-      {/* RECENT SEARCHES SECTION */}
-      <div className="flex w-full md:w-2/3 mt-16 justify-between items-start">
-        <h1 className="text-xl font-bold text-gray-900 dark:text-gray-400 mb-6">
-          RECENT SEARCHES
-        </h1>
-        <Link href="/analysis">
+      {/* Tab SECTION */}
+      <div className="flex flex-col w-full mt-16 gap-4 items-start">
+        <Link href="/analysis" className="mb-3">
           <Button
             title="Analyse New Video"
             variant="secondary"
@@ -241,18 +264,22 @@ const Dashboard = () => {
             <PlusIcon />
           </Button>
         </Link>
-      </div>
-      <div className="w-full md:w-2/3 border-b border-gray-200 dark:border-gray-700" />
-      {/* RECENT SEARCHES */}
-      <div className="pt-4 w-full md:w-2/3 flex flex-col gap-10">
-        {videoList.length !== 0 &&
-          videoList.map((video) => (
-            <VideoTile
-              key={video.videoId}
-              videoId={video.videoId}
-              createdAt={video._creationTime}
-            />
-          ))}
+
+        <TabComponent
+          blogsComp={<AllMyBlogs />}
+          searchesComp={
+            <div className="mt-3">
+              {videoList.length !== 0 &&
+                videoList.map((video) => (
+                  <VideoTile
+                    key={video.videoId}
+                    videoId={video.videoId}
+                    createdAt={video._creationTime}
+                  />
+                ))}
+            </div>
+          }
+        />
       </div>
     </section>
   );

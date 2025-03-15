@@ -30,7 +30,7 @@ interface Video {
   _creationTime: number;
   videoId: string;
   userId: string;
-  title:string;
+  title: string;
 }
 
 const SearchHistory = ({
@@ -39,7 +39,7 @@ const SearchHistory = ({
   open,
 }: {
   video: Video;
-  videoId:string;
+  videoId: string;
   open: boolean;
 }) => {
   const params = useParams<{ videoId: string }>();

@@ -29,6 +29,10 @@ const features = [
     image: "shooting_script.png",
   },
   {
+    title: "Generate Detailed Blog Posts",
+    image: "blog.png",
+  },
+  {
     title: "Generate High-quality, Click Worthy Thumbnails & Titles",
     image: "thumbnail.png",
   },

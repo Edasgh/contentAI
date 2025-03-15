@@ -14,6 +14,7 @@ import { createOrGetVideo } from "@/actions/createOrGetVideo";
 import { toast } from "react-toastify";
 import AudienceAnalysis from "@/components/AudienceAnalysis";
 import VideoChapters from "@/components/VideoChapters";
+import BlogGeneration from "@/components/BlogGeneration";
 
 export default function VideoAnalysis() {
   const params = useParams<{ videoId: string }>();
@@ -89,10 +90,12 @@ export default function VideoAnalysis() {
           <ThumbnailGeneration videoId={videoId} />
           {/* Title Generation */}
           <TitleGeneration videoId={videoId} />
+          {/* Blog Post Generations */}
+          <BlogGeneration videoId={videoId} />
           {/* Transcription */}
           <Transcription videoId={videoId} />
           {/* Video Chapters */}
-          <VideoChapters videoId={videoId}/>
+          <VideoChapters videoId={videoId} />
         </div>
 
         {/* Right Side */}

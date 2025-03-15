@@ -4,7 +4,7 @@ export default defineSchema({
   videos: defineTable({
     videoId: v.string(),
     userId: v.string(),
-    title:v.string()
+    title: v.string(),
   })
     .index("by_user_id", ["userId"])
     .index("by_video_id", ["videoId"])
@@ -71,17 +71,15 @@ export default defineSchema({
     .index("by_video_id", ["videoId"])
     .index("by_user_and_video", ["userId", "videoId"]),
 
-  messages: defineTable({
-    videoId: v.id("video"),
+  blog: defineTable({
+    videoId: v.string(),
     userId: v.string(),
-    content: v.string(),
-    role: v.union(
-      v.literal("user"),
-      v.literal("assistant"),
-      v.literal("system"),
-      v.literal("data")
-    ),
-    createdAt: v.number(),
+    blogPost: v.object({
+      title: v.string(),
+      tags: v.array(v.string()),
+      keywords: v.array(v.string()),
+      content: v.string(),
+    }),
   })
     .index("by_user_id", ["userId"])
     .index("by_video_id", ["videoId"])
