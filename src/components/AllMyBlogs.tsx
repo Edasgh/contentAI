@@ -8,6 +8,10 @@ import { PenToolIcon } from "lucide-react";
 export default function AllMyBlogs() {
   const { user } = useUser();
 
+  const blogs = useQuery(api.blog.getBlogsByUserId, {
+    userId: user?.id ?? "",
+  }); // PUll from convex db
+
   if (!user) {
     return (
       <div className="text-red-500 text-center py-4">
@@ -15,10 +19,6 @@ export default function AllMyBlogs() {
       </div>
     );
   }
-
-  const blogs = useQuery(api.blog.getBlogsByUserId, {
-    userId: user.id,
-  }); // PUll from convex db
 
   return (
     <>

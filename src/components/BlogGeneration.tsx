@@ -7,6 +7,11 @@ import Link from "next/link";
 export default function BlogGeneration({ videoId }: { videoId: string }) {
   const { user } = useUser();
 
+  const blogs = useQuery(api.blog.listBlogs, {
+    userId: user?.id?? "",
+    videoId: videoId,
+  }); // PUll from convex db
+
   if (!user) {
     return (
       <div className="text-red-500 text-center py-4">
@@ -18,11 +23,6 @@ export default function BlogGeneration({ videoId }: { videoId: string }) {
   if (!videoId) {
     return <div className="text-gray-500 text-center py-4">Loading....</div>;
   }
-
-  const blogs = useQuery(api.blog.listBlogs, {
-    userId: user.id,
-    videoId: videoId,
-  }); // PUll from convex db
 
   return (
     <div className="flex flex-col dark:border-gray-600 shadow-md rounded-xl p-4 border">
@@ -39,14 +39,18 @@ export default function BlogGeneration({ videoId }: { videoId: string }) {
 
       <div className="space-y-3 mt-4 max-h-[280px] overflow-y-auto">
         {" "}
-        {blogs && blogs.length!==0 &&
+        {blogs &&
+          blogs.length !== 0 &&
           blogs.map((blog) => (
             <div
               key={blog._id}
               className="group relative p-4 rounded-lg border border-gray-100 dark:border-gray-500 bg-gray-50 dark:bg-gray-700 hover:border-blue-100 hover:bg-blue-50 transition-all duration-200"
             >
               <div className="flex items-start justify-between gap-4">
-                <Link href={`/analysis/blog/${blog._id}`} className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed">
+                <Link
+                  href={`/analysis/blog/${blog._id}`}
+                  className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed"
+                >
                   {" "}
                   {blog.blogPost.title}
                 </Link>
