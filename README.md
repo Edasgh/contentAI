@@ -2,27 +2,27 @@
 
 [LIVE DEMO](https://contentai-edasgh.vercel.app/)
 
-
-
 ## Overview
 
-ContentAI is an AI-powered platform that helps content creators analyze, transcribe, and optimize their YouTube videos. The tool leverages artificial intelligence to provide deep insights, auto-generate video scripts, create engaging thumbnails, and more.
+ContentAI is an AI-powered platform that helps content creators analyze, transcribe, and optimize their YouTube videos. The tool leverages artificial intelligence to provide deep insights, auto-generate video scripts, create engaging thumbnails, and many more.
 
 ## Features
 
 - **AI Analysis**: Gain insights into viewer engagement and content quality.
 - **Auto Transcription**: Convert YouTube videos into accurate transcripts.
-- **AI Script Generator**: Generate engaging scripts for YouTube videos. (Coming Soon!)
+- **Video Chapters Generator**: Generate timestamped video chapters for ease of Audience Experience.
+- **AI Script Generator**: Generate engaging scripts for YouTube videos.
+- **AI Blog Post Generator**: Generate descriptive, SEO-friendly blog posts.
 - **AI Title Generator**: Generate catchy, SEO friendly titles for YouTube videos.
 - **Thumbnail Creator**: Automatically create high-quality thumbnails.
 - **Engagement Metrics**: Track views, likes, comments, and retention.
-- **Video Chapters Generator**: Generate timestamped video chapters for ease of Audience Experience.
+- **Target Audience Analysis**: Get target audience analysis of any YouTube video
 
 ## How It Works
 
 1. **Connect with your content**: Share your YouTube video URL.
 2. **Get AI-Powered Insights**: Extract transcripts, analyze engagement, and generate a script.
-3. **Receive Ready-to-Use Content**: Download the transcript, script, and AI-generated thumbnail.
+3. **Receive Ready-to-Use Content**: Download the transcript, script, AI-generated thumbnail and many more.
 
 ## Tech Stack
 
