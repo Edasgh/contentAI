@@ -13,6 +13,10 @@ export default function BlogPost() {
   const params = useParams<{ blogId: string }>();
   const { blogId } = params;
 
+  const blog = useQuery(api.blog.getBlogById, {
+    id: blogId as Id<"blog">,
+  });
+
   const { user } = useUser();
 
   if (!user) {
@@ -22,10 +26,6 @@ export default function BlogPost() {
       </div>
     );
   }
-
-  const blog = useQuery(api.blog.getBlogById, {
-    id: blogId as Id<"blog">,
-  });
 
   const blogPost = blog?.blogPost;
 
