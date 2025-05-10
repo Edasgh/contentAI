@@ -85,7 +85,7 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                     Published
                   </p>
                 </div>
-                <p className="font-medium text-gray-900 dark:text-gray-400">
+                <p className="font-medium text-sm md:text-lg text-gray-900 dark:text-gray-400">
                   {new Date(video.publishedAt).toLocaleDateString()}
                 </p>
               </div>
@@ -97,7 +97,7 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                     Views
                   </p>
                 </div>
-                <p className="font-medium text-gray-900 dark:text-gray-400">
+                <p className="font-medium text-sm md:text-lg text-gray-900 dark:text-gray-400">
                   {video.views}
                 </p>
               </div>
@@ -109,7 +109,7 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                     Likes
                   </p>
                 </div>
-                <p className="font-medium text-gray-900 dark:text-gray-400">
+                <p className="font-medium text-sm md:text-lg text-gray-900 dark:text-gray-400">
                   {video.likes}
                 </p>
               </div>
@@ -121,7 +121,7 @@ const YoutubeVideoDetails = ({ videoId }: { videoId: string }) => {
                     Comments
                   </p>
                 </div>
-                <p className="font-medium text-gray-900 dark:text-gray-400">
+                <p className="font-medium text-sm md:text-lg text-gray-900 dark:text-gray-400">
                   {video.comments}
                 </p>
               </div>

@@ -42,8 +42,10 @@ const Usage = ({
     return (
       <div className="text-gray-500 text-center py-4">
         <p>You've used all your tokens for this feature.</p>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">{title}</h2>
+        <div className="flex flex-wrap justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
+            {title}
+          </h2>
           <div className="px-4 py-2 bg-red-50 rounded-lg">
             <span className="font-medium text-red-700">{featureUsage}</span>
             <span className="text-red-400 mx-2">/</span>
@@ -69,8 +71,10 @@ const Usage = ({
   if (!isFeatureEnabled) {
     return (
       <div className="p-2 opacity-50">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-gray-800  dark:text-gray-100 ">{title}</h2>
+        <div className="flex flex-wrap justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold text-gray-800  dark:text-gray-100 ">
+            {title}
+          </h2>
           <div className="px-4 py-2 bg-gray-50 rounded-lg">
             <span className="text-gray-500">Feature Disabled</span>
           </div>
@@ -95,8 +99,8 @@ const Usage = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4 gap-4">
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+      <div className="flex flex-wrap justify-between items-center mb-4 gap-4">
+        <h2 className="text-lg lg:text-xl font-semibold text-gray-800 dark:text-gray-200">
           {title}
         </h2>
         <div className="px-4 py-2 bg-gray-50 rounded-lg">
@@ -105,7 +109,7 @@ const Usage = ({
           <span className="font-medium text-gray-700">{featureAllocation}</span>
         </div>
       </div>
-      <div className="relative">
+      <div className="relative w-[175px] min-[500px]:w-full">
         <Progress
           value={progress}
           className={`h-3 rounded-full bg-gray-100 dark:bg-gray-700 [&>*]:${getProgressColor(progress)}`}

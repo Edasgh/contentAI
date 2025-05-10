@@ -46,7 +46,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 left-0 right-0 md:px-0 px-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 z-50">
       <div className="container px-4 mx-auto">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex flex-wrap items-center justify-between max-md:py-3 max-md:h-fit h-16">
           {/* Left */}
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-4">
@@ -57,7 +57,7 @@ const Header = () => {
             </Link>
           </div>
           {/* Right */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1 md:gap-4">
             {/* Dark Mode toggle button */}
             <ModeToggle />
             <SignedIn>

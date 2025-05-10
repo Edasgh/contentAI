@@ -40,9 +40,8 @@ function formatToolCall(part: ToolPart) {
 }
 
 const AIAgentChat = ({ videoId }: { videoId: string }) => {
-
-  const [questions,setQuestions] = useState<String[]>([]);
-  const [open,setOpen] = useState(true);
+  const [questions, setQuestions] = useState<String[]>([]);
+  const [open, setOpen] = useState(true);
 
   const { messages, input, handleInputChange, handleSubmit, append, status } =
     useChat({
@@ -57,9 +56,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   const IsAudienceAnalysisEnabled = useSchematicFlag(
     FeatureFlag.AUDIENCE_ANALYSIS
   );
-  const IsVideoChapterGenEnabled = useSchematicFlag(
-    FeatureFlag.VIDEO_CHAPTERS
-  );
+  const IsVideoChapterGenEnabled = useSchematicFlag(FeatureFlag.VIDEO_CHAPTERS);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -151,25 +148,22 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
     return true;
   });
 
+  const handleGenerateQuestions = useCallback(
+    async (videoId: string) => {
+      if (!IsVideoAnalysisEnabled) {
+        console.log("Analysis limit reached, the user must upgrade");
+        return;
+      }
 
-  
-    const handleGenerateQuestions = useCallback(
-      async (videoId: string) => {
-        if (!IsVideoAnalysisEnabled) {
-          console.log("Analysis limit reached, the user must upgrade");
-          return;
-        }
+      const result = await generateQuestionSuggestions(videoId);
+      setQuestions(result?.questions || []);
+    },
+    [IsVideoAnalysisEnabled]
+  );
 
-        const result = await generateQuestionSuggestions(videoId);
-        setQuestions(result?.questions || []);
-      },
-      [IsVideoAnalysisEnabled]
-    );
-
-    useEffect(() => {
-      handleGenerateQuestions(videoId);
-    }, [handleGenerateQuestions, videoId]);
-
+  useEffect(() => {
+    handleGenerateQuestions(videoId);
+  }, [handleGenerateQuestions, videoId]);
 
   const msgRef = useRef<HTMLDivElement>(null);
 
@@ -210,7 +204,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
   }, [status]);
 
   return (
-    <div className="flex flex-col p-3 border border-gray-200 shadow-gray-200 dark:border-gray-600 dark:shadow-gray-600 shadow-md rounded-md h-full">
+    <div className="flex flex-col p-0 lg:p-3 border-none md:border  border-gray-200 shadow-gray-200 dark:border-gray-600 dark:shadow-gray-600 shadow-md rounded-md h-full">
       <div className="hidden lg:block px-4 pb-3 border-b border-gray-100 dark:border-gray-700">
         <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-300">
           AI Agent
@@ -302,7 +296,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
       </div>
 
       {/* Input Form */}
-      <div className="border-t border-gray-100 dark:border-gray-600 p-4 bg-white dark:bg-gray-700 rounded-md">
+      <div className="border-t border-gray-100 dark:border-gray-600 py-1.5 px-3.5 bg-white dark:bg-gray-700 rounded-md">
         {open ? (
           <ChevronDown
             className="cursor-pointer mb-1.5"
@@ -321,7 +315,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
           />
         )}
         {open && (
-          <div className="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+          <div className="flex gap-2 overflow-x-auto pb-1.5">
             {questions &&
               questions.length !== 0 &&
               questions.map((w, index) => (
@@ -363,7 +357,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
         )}
         <form
           onSubmit={handleSubmit}
-          className="flex gap-2"
+          className="flex mt-3 flex-wrap gap-2"
           suppressHydrationWarning
         >
           <input
@@ -375,7 +369,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
                 ? "Upgrade to ask anything about your video..."
                 : "Ask anything about your video..."
             }
-            className="flex-1 px-4 py-2 text-sm border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-gray-200"
+            className="flex-1 px-4 py-2 text-sm border-gray-200 rounded-full focus:outline-none ring-1 focus:ring-2 ring-blue-100 dark:ring-blue-950 focus:ring-blue-500 focus:dark:ring-blue-600 focus:border-transparent dark:bg-gray-800 dark:text-gray-200"
             disabled={
               status === "streaming" ||
               status === "submitted" ||
@@ -402,7 +396,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
             )}
           </Button>
         </form>
-        <div className="mt-2 flex flex-wrap gap-2">
+        <div className="mt-2 pb-1.5 flex overflow-x-auto gap-2">
           <button
             type="button"
             className="inline-flex bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-900 items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0  shadow  rounded-2xl cursor-pointer h-9 px-4 py-2 flex-shrink-0 text-xs text-dark-600 hover:text-dark-800 disabled:cursor-not-allowed disabled:text-dark-300 dark:text-light-400 dark:hover:text-light-200 dark:disabled:text-light-600"
