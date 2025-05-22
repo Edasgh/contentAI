@@ -14,6 +14,7 @@ import { getAudienceAnalysis } from "@/lib/tools/getAudienceAnalysis";
 import { generateVideoSummary } from "@/actions/titleGeneration";
 import { generateShootingScript } from "@/actions/generateShootingScript";
 import { generateBlog } from "@/lib/tools/generateBlog";
+import { generatePost } from "@/lib/tools/generatePost";
 
 const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
@@ -118,7 +119,8 @@ export async function POST(req: Request) {
           return { videoComments };
         },
       }),
-      generateBlogPost:generateBlog
+      generateBlogPost:generateBlog,
+      generateSocialMediaPost:generatePost
     },
   });
 
