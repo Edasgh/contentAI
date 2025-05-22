@@ -23,6 +23,7 @@ import {
 import { toast } from "react-toastify";
 import Spinner from "./Spinner";
 import { generateQuestionSuggestions } from "@/actions/generateQuestionSuggestions";
+import GenerateSocialsPost from "./GenerateSocialsPost";
 
 interface ToolInvocation {
   toolCallId: string;
@@ -126,6 +127,16 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
 
     append(userMessage);
   }
+  async function generateSocialsPost({ platform }: { platform: string }) {
+    const randomId = Math.random().toString(36).substring(2, 15);
+    const userMessage: Message = {
+      id: `generate-post-${randomId}`,
+      role: "user",
+      content: `Generate a ${platform} post from this video : ${videoId}.`,
+    };
+
+    append(userMessage);
+  }
 
   const SYSTEM_MESSAGE_PREFIXES = [
     "generate-script-",
@@ -134,6 +145,7 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
     "generate-audience-analysis-",
     "generate-chapters-",
     "generate-blog-",
+    "generate-post-",
   ];
 
   const displayMessages = messages.filter((message) => {
@@ -500,6 +512,10 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
               <span>Upgrade to Generate a Blog Post</span>
             )}
           </button>
+          <GenerateSocialsPost
+            prompt={`You are a helpful social media post creator assistant. Write an informative, concise, and professional post. Focus on clarity, value, and engagement. Use technical but accessible language.`}
+            IsVideoAnalysisEnabled={IsVideoAnalysisEnabled}
+          />
         </div>
       </div>
     </div>
