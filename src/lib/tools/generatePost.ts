@@ -5,17 +5,21 @@ import { z } from "zod";
 export const generatePost = tool({
   description: "Generate a social media post based on a YouTube video",
   parameters: z.object({
-    prompt: z
+    instruction: z
       .string()
-      .describe("The custom requirements for the post to fulfill"),
+      .describe("The custom instructions for the post to fulfill"),
     postType: z.string().describe("The platform the post is for"),
     videoId: z
       .string()
       .describe("The video ID to generate the social media post from"),
   }),
-  execute: async ({ videoId, postType, prompt }) => {
+  execute: async ({ videoId, postType, instruction }) => {
     try {
-      const postDetails = await generateSocialsPost(prompt, postType, videoId);
+      const postDetails = await generateSocialsPost(
+        instruction,
+        postType,
+        videoId
+      );
       if (!postDetails) {
         return {
           error:

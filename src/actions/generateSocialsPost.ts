@@ -10,7 +10,7 @@ const genAI = new GoogleGenerativeAI(apiKey!);
 
 const model = genAI.getGenerativeModel({
   model: "gemini-2.0-flash-001",
-  systemInstruction: `You are a social media post creator assistant helping users write their posts for platforms like : LinkedIn, Twitter, Facebook & Instagram, based on their requirements.Also generate relevant keywords & tags for the post based on the given youtube video's summary and some custom post details (keywords, tags, custom requirements).`,
+  systemInstruction: `You are a social media post creator assistant helping users write their posts for platforms like : LinkedIn, Twitter, Facebook & Instagram, based on their requirements.Also generate relevant keywords & tags for the post based on the given youtube video's summary.`,
 });
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
@@ -59,8 +59,7 @@ export async function customPrompts({
 
 export async function generatePostContent(prompt: string) {
   try {
-    const chat = model.startChat({});
-    const result = await chat.sendMessage(prompt);
+    const result = await model.generateContent(prompt);
     const responseText = result.response.text();
 
     if (!responseText) throw new Error("Empty response from AI");
@@ -73,7 +72,7 @@ export async function generatePostContent(prompt: string) {
 }
 
 export async function generateSocialsPost(
-  prompt: string,
+  instruction: string,
   postType: string,
   videoId: string
 ) {
@@ -95,13 +94,13 @@ export async function generateSocialsPost(
         error: "Failed to generate post (system error) ",
       };
     }
-    const postgenerationPrompt = `Create an engaging ${postType} post using the following requirements.
-        Requirements:\n
-
-        ${prompt}
+    const postgenerationPrompt = `Write ONLY ONE engaging ${postType} post using the following requirements.
+        Instructions:\n
+        ${instruction}
         Use the following keywords: ${keywords}\n
         Include these hashtags where appropriate: ${tags}\n
-        The ${postType} post should match the tone of the platform.`;
+        The ${postType} post should match the tone of the platform.
+        Generate the post content ONLY, NOT anything else like, tags or keywords.`;
 
     const socialPost = await generatePostContent(postgenerationPrompt);
     if (!socialPost) {
@@ -111,8 +110,8 @@ export async function generateSocialsPost(
     }
 
     return {
-      tags: tags.split(","),
-      keywords: keywords.split(","),
+      tags: tags.split(",").filter((e) => e.trim() !== ""),
+      keywords: keywords.split(",").filter((e) => e.trim() !== ""),
       post: socialPost,
     };
   } catch (error) {

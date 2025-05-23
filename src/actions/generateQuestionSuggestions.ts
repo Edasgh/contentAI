@@ -12,8 +12,6 @@ const model = genAI.getGenerativeModel({
 
 });
 
-const chat = model.startChat({});
-
 
 function removeOrderedPattern(arr:string[]) {
    return arr.map((text) => text.replace(/^\s*([0-9]+\.|[a-zA-Z]\.)\s*/, ""));
@@ -31,7 +29,7 @@ export async function generateQuestionSuggestions(videoId:string){
        };
      }
      //getting suggestions
-     const result = await chat.sendMessage(
+     const result = await model.generateContent(
        `Given the following video summary, generate ONLY 5 engaging and insightful questions to encourage discussion and deeper understanding. 
       Provide a mix of:
       - Factual questions (based on information in the summary)

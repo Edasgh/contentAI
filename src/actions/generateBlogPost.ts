@@ -12,7 +12,7 @@ const genAI = new GoogleGenerativeAI(apiKey!);
 
 const model = genAI.getGenerativeModel({
   model: "gemini-2.0-flash-001",
-  systemInstruction: `You are a helpful blog post creator assistant that creates a comprehensive, SEO-optimized blog post,a relevant title, relevant keywords & tags for the blog post based on the given youtube video's summary and some custom blog details (keywords, tags, title) `,
+  systemInstruction: `You are a helpful blog post creator assistant that creates a comprehensive, SEO-optimized blog post,a relevant title, relevant keywords & tags for the blog post based on the given youtube video's summary. `,
 });
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
@@ -48,8 +48,7 @@ export async function getDetails(videoId: string) {
 
 export async function generateBlogContent(prompt: string) {
   try {
-    const chat = model.startChat({});
-    const result = await chat.sendMessage(prompt);
+    const result = await model.generateContent(prompt);
     const responseText = result.response.text();
 
     if (!responseText) throw new Error("Empty response from AI");

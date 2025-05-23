@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -11,6 +12,7 @@ import {
   FacebookIcon,
   InstagramIcon,
   LinkedinIcon,
+  Loader2Icon,
   TwitterIcon,
 } from "lucide-react";
 import {
@@ -18,6 +20,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
@@ -30,6 +33,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useRef } from "react";
 
 const FormSchema = z.object({
   type: z.string().min(1, { message: "Platform is required." }),
@@ -41,10 +45,15 @@ const FormSchema = z.object({
 export default function GenerateSocialsPost({
   IsVideoAnalysisEnabled,
   prompt,
+  handleSubmit,
+  status,
 }: {
   IsVideoAnalysisEnabled: boolean;
   prompt: string;
+  handleSubmit: (platform: string, prompt: string) => void;
+  status: string;
 }) {
+  const btnRef = useRef<HTMLButtonElement>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -55,8 +64,10 @@ export default function GenerateSocialsPost({
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
-
-    //form.reset();
+    if (btnRef.current) {
+      btnRef.current.click();
+    }
+    handleSubmit(data.type, data.system_prompt);
   }
 
   return (
@@ -133,10 +144,14 @@ export default function GenerateSocialsPost({
                 name="system_prompt"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel>
+                      Generate a post using the following instructions
+                    </FormLabel>
                     <Textarea
                       defaultValue={prompt}
                       placeholder="System Prompt"
                       {...field}
+                      suppressContentEditableWarning
                     />
                     <FormMessage />
                   </FormItem>
@@ -148,7 +163,11 @@ export default function GenerateSocialsPost({
                   type="submit"
                   disabled={form.formState.isSubmitting}
                 >
-                  {form.formState.isSubmitting ? "Saving..." : "Save"}
+                  {form.formState.isSubmitting ? (
+                    <Loader2Icon className="animate-spin" />
+                  ) : (
+                    "Generate Post"
+                  )}
                 </Button>
                 <Button
                   type="button"
@@ -163,6 +182,7 @@ export default function GenerateSocialsPost({
             </form>
           </Form>
         </div>
+        <DialogClose ref={btnRef} className="hidden" />
       </DialogContent>
     </Dialog>
   );

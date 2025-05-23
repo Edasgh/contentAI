@@ -127,12 +127,13 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
 
     append(userMessage);
   }
-  async function generateSocialsPost({ platform }: { platform: string }) {
+  async function generateSocialsPost(platform: string, prompt: string) {
     const randomId = Math.random().toString(36).substring(2, 15);
     const userMessage: Message = {
       id: `generate-post-${randomId}`,
       role: "user",
-      content: `Generate a ${platform} post from this video : ${videoId}.`,
+      content: `Generate a ${platform} post from this video : ${videoId}.
+      For the given instruction : ${prompt}`,
     };
 
     append(userMessage);
@@ -513,8 +514,10 @@ const AIAgentChat = ({ videoId }: { videoId: string }) => {
             )}
           </button>
           <GenerateSocialsPost
-            prompt={`You are a helpful social media post creator assistant. Write an informative, concise, and professional post. Focus on clarity, value, and engagement. Use technical but accessible language.`}
+            prompt={`Write an informative, concise, and professional post. Focus on clarity, value, and engagement. Use technical but accessible language.`}
             IsVideoAnalysisEnabled={IsVideoAnalysisEnabled}
+            handleSubmit={generateSocialsPost}
+            status={status}
           />
         </div>
       </div>
