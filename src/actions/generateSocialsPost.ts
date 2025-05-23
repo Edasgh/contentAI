@@ -10,7 +10,7 @@ const genAI = new GoogleGenerativeAI(apiKey!);
 
 const model = genAI.getGenerativeModel({
   model: "gemini-2.0-flash-001",
-  systemInstruction: `You are a social media post creator assistant helping users write their posts for LinkedIn, Twitter, Facebook and Instagram based on their requirements.Also create relevant keywords & tags for the post based on the given youtube video's summary and some custom post details (keywords, tags).`,
+  systemInstruction: `You are a social media post creator assistant helping users write their posts for platforms like : LinkedIn, Twitter, Facebook & Instagram, based on their requirements.Also generate relevant keywords & tags for the post based on the given youtube video's summary and some custom post details (keywords, tags, custom requirements).`,
 });
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
