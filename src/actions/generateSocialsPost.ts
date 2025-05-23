@@ -95,8 +95,9 @@ export async function generateSocialsPost(
         error: "Failed to generate post (system error) ",
       };
     }
-    const postgenerationPrompt = `Create an engaging ${postType} post using the following content.
-        Content:\n
+    const postgenerationPrompt = `Create an engaging ${postType} post using the following requirements.
+        Requirements:\n
+
         ${prompt}
         Use the following keywords: ${keywords}\n
         Include these hashtags where appropriate: ${tags}\n
