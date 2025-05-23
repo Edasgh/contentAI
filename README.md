@@ -13,6 +13,7 @@ ContentAI is an AI-powered platform that helps content creators analyze, transcr
 - **Video Chapters Generator**: Generate timestamped video chapters for ease of Audience Experience.
 - **AI Script Generator**: Generate engaging scripts for YouTube videos.
 - **AI Blog Post Generator**: Generate descriptive, SEO-friendly blog posts.
+- **AI Social Media Post Generator**: Generate engaging, concise custom social media posts.
 - **AI Title Generator**: Generate catchy, SEO friendly titles for YouTube videos.
 - **Thumbnail Creator**: Automatically create high-quality thumbnails.
 - **Engagement Metrics**: Track views, likes, comments, and retention.
