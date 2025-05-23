@@ -1,5 +1,6 @@
 "use client";
 import AllMyBlogs from "@/components/AllMyBlogs";
+import AllMyPosts from "@/components/AllMyPosts";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -187,22 +188,28 @@ const UsageCard = ({
 const TabComponent = ({
   searchesComp,
   blogsComp,
+  postsComp,
 }: {
   searchesComp: React.ReactNode;
   blogsComp: React.ReactNode;
+  postsComp: React.ReactNode;
 }) => {
   return (
     <Tabs defaultValue="recent_searches" className="w-full md:w-2/3">
-      <TabsList className="grid w-full grid-cols-2">
+      <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger className="cursor-pointer" value="recent_searches">
           Recent Searches
         </TabsTrigger>
         <TabsTrigger className="cursor-pointer" value="my_blogs">
           My Blogs
         </TabsTrigger>
+        <TabsTrigger className="cursor-pointer" value="my_posts">
+          My Posts
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="recent_searches">{searchesComp}</TabsContent>
       <TabsContent value="my_blogs">{blogsComp}</TabsContent>
+      <TabsContent value="my_posts">{postsComp}</TabsContent>
     </Tabs>
   );
 };
@@ -266,6 +273,7 @@ const Dashboard = () => {
         </Link>
 
         <TabComponent
+         postsComp={<AllMyPosts/>}
           blogsComp={<AllMyBlogs />}
           searchesComp={
             <div className="mt-3">

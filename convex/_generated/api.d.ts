@@ -17,6 +17,7 @@ import type * as audience_analysis from "../audience_analysis.js";
 import type * as blog from "../blog.js";
 import type * as comments from "../comments.js";
 import type * as images from "../images.js";
+import type * as post from "../post.js";
 import type * as titles from "../titles.js";
 import type * as transcripts from "../transcripts.js";
 import type * as videoChapters from "../videoChapters.js";
@@ -35,6 +36,7 @@ declare const fullApi: ApiFromModules<{
   blog: typeof blog;
   comments: typeof comments;
   images: typeof images;
+  post: typeof post;
   titles: typeof titles;
   transcripts: typeof transcripts;
   videoChapters: typeof videoChapters;

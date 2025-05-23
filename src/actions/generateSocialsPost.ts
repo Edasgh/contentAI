@@ -77,6 +77,14 @@ export async function generateSocialsPost(
   videoId: string
 ) {
   try {
+    const user = await currentUser();
+
+    if (!user) {
+      return {
+        error: "Failed to generate blog post (system error) ",
+      };
+    }
+
     const details = await customPrompts({ postType, videoId });
     if (!details) {
       return null;
@@ -109,10 +117,27 @@ export async function generateSocialsPost(
       };
     }
 
-    return {
-      tags: tags.split(",").filter((e) => e.trim() !== ""),
+    const generatedPost = {
+      content: socialPost,
       keywords: keywords.split(",").filter((e) => e.trim() !== ""),
-      post: socialPost,
+      tags: tags.split(",").filter((e) => e.trim() !== ""),
+    };
+
+    // Store blog post in database
+    await convex.mutation(api.post.storePost, {
+      videoId,
+      userId: user.id,
+      postType,
+      postContent: {
+        content: generatedPost.content,
+        tags: generatedPost.tags,
+      },
+    });
+
+    return {
+      tags: generatedPost.tags,
+      keywords: generatedPost.keywords,
+      post: generatedPost.content,
     };
   } catch (error) {
     console.log("Error generating post : ", error);

@@ -84,4 +84,16 @@ export default defineSchema({
     .index("by_user_id", ["userId"])
     .index("by_video_id", ["videoId"])
     .index("by_user_and_video", ["userId", "videoId"]),
+  post: defineTable({
+    videoId: v.string(),
+    userId: v.string(),
+    postType:v.string(),
+    postContent: v.object({
+      tags: v.array(v.string()),
+      content: v.string(),
+    }),
+  })
+    .index("by_user_id", ["userId"])
+    .index("by_video_id", ["videoId"])
+    .index("by_user_and_video", ["userId", "videoId"]),
 });
