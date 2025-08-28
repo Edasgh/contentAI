@@ -276,7 +276,7 @@ const Dashboard = () => {
          postsComp={<AllMyPosts/>}
           blogsComp={<AllMyBlogs />}
           searchesComp={
-            <div className="mt-3">
+            <div className="mt-3 flex flex-col gap-4">
               {videoList.length !== 0 &&
                 videoList.map((video) => (
                   <VideoTile

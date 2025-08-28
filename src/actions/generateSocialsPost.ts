@@ -81,7 +81,7 @@ export async function generateSocialsPost(
 
     if (!user) {
       return {
-        error: "Failed to generate blog post (system error) ",
+        error: "Failed to generate post (system error) ",
       };
     }
 

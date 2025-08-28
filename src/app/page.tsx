@@ -33,6 +33,10 @@ const features = [
     image: "blog.png",
   },
   {
+    title: "Generate Custom Social Media Posts",
+    image: "socials_post.png",
+  },
+  {
     title: "Generate High-quality, Click Worthy Thumbnails & Titles",
     image: "thumbnail.png",
   },

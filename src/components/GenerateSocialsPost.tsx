@@ -33,7 +33,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const FormSchema = z.object({
   type: z.string().min(1, { message: "Platform is required." }),
@@ -41,6 +41,25 @@ const FormSchema = z.object({
     .string()
     .min(10, { message: "Prompt should have at least 10 characters!" }),
 });
+
+const prompts = new Map<string, string>([
+  [
+    "LinkedIn",
+    "You are a professional content writer crafting a LinkedIn post. Create a thoughtful, industry-relevant post that shares insights, lessons learned, or value-driven content. Keep the tone professional, informative, and slightly personal. Include a hook in the first line and end with a question or call to action to encourage engagement.",
+  ],
+  [
+    "X(Twitter)",
+    "Create an engaging tweet or a short thread. Use concise language, emojis, and relevant hashtags. Make it punchy, witty, or insightful. Keep it under 280 characters per tweet.",
+  ],
+  [
+    "Facebook",
+    "Write a casual and engaging Facebook post. Make it friendly and relatable. Use storytelling or real-life scenarios. Optionally, add an emoji or ask a question at the end to spark comments.",
+  ],
+  [
+    "Instagram",
+    "Write a caption for an Instagram post or reel. Make it short, aesthetic, and emotionally engaging. Use emojis and line breaks to enhance readability. Add 3–5 relevant hashtags.",
+  ]
+]);
 
 export default function GenerateSocialsPost({
   IsVideoAnalysisEnabled,
@@ -69,6 +88,15 @@ export default function GenerateSocialsPost({
     }
     handleSubmit(data.type, data.system_prompt);
   }
+
+  const selectedPlatform = form.watch("type");
+
+  useEffect(() => {
+    if (selectedPlatform) {
+      const promptTemplate = prompts.get(selectedPlatform) || prompt;
+      form.setValue("system_prompt", promptTemplate);
+    }
+  }, [selectedPlatform, form, prompt]);
 
   return (
     <Dialog>
@@ -148,11 +176,12 @@ export default function GenerateSocialsPost({
                       Generate a post using the following instructions
                     </FormLabel>
                     <Textarea
-                      defaultValue={prompt}
                       placeholder="System Prompt"
                       {...field}
+                      suppressHydrationWarning
                       suppressContentEditableWarning
                     />
+
                     <FormMessage />
                   </FormItem>
                 )}
